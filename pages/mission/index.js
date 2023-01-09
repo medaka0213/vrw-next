@@ -23,13 +23,12 @@ const getParams = (type, query, keys) => {
       : [
           {
             key: "limit",
-            value: 100,
+            value: 1000,
           },
         ];
   } else {
     return Object.keys(query).map((k) => {
       const target = keys.filter((key) => key.value === k);
-      console.log("target", target);
       return {
         key: k,
         value: query[k],
@@ -109,6 +108,8 @@ const App = () => {
     setKeys(keys);
     loadItems(params);
   }, [dispatch, query]);
+
+  console.log("queries", queries);
 
   return (
     <>

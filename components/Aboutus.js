@@ -35,13 +35,13 @@ const App = ({ sx }) => {
       <Typography>
         最新の打ち上げ情報については、下記のリンクをご覧ください。
       </Typography>
-      <Typography>
+      <Typography variant="p" sx={{ mr: 3 }}>
         <Link href="/mission" sx={iconWrapStyle}>
           <SearchIcon sx={{ mr: 0.5 }} />
           ミッション検索
         </Link>
       </Typography>
-      <Typography>
+      <Typography variant="p" sx={{ mr: 3 }}>
         <Link href="/meetup" sx={iconWrapStyle}>
           <SearchIcon sx={{ mr: 0.5 }} />
           集会検索
@@ -53,19 +53,19 @@ const App = ({ sx }) => {
       <Typography>
         告知・スケジュール・打ち上げ情報の確認等にご利用ください
       </Typography>
-      <Typography>
-        <Link href="/meetup" sx={iconWrapStyle} external>
+      <Typography variant="p" sx={{ mr: 3 }}>
+        <Link href="https://twitter.com/vr_launch" sx={iconWrapStyle} external>
           <TwitterIcon sx={{ mr: 0.5 }} />
           Twitter
         </Link>
       </Typography>
-      <Typography>
+      <Typography variant="p" sx={{ mr: 3 }}>
         <Link href="https://t.co/nL12021X0s" sx={iconWrapStyle} external>
           <EventIcon sx={{ mr: 0.5 }} />
           Googleカレンダー
         </Link>
       </Typography>
-      <Typography>
+      <Typography variant="p" sx={{ mr: 3 }}>
         <Link href="https://t.co/cjfnxjZrZG" sx={iconWrapStyle} external>
           <ForumIcon sx={{ mr: 0.5 }} />
           Discord
@@ -78,14 +78,14 @@ const App = ({ sx }) => {
         ご意見・ご要望等ございましたら、下記のGoogle Form
         までお問い合わせください。
       </Typography>
-      <Typography>
-        <Link href="/meetup" sx={iconWrapStyle}>
+      <Typography variant="p" sx={{ mr: 3 }}>
+        <Link href="/meetup" sx={iconWrapStyle} external>
           <NoteAltOutlinedIcon sx={{ mr: 0.5 }} />
           参加者アンケート
         </Link>
       </Typography>
-      <Typography>
-        <Link href="https://t.co/nL12021X0s" sx={iconWrapStyle}>
+      <Typography variant="p" sx={{ mr: 3 }}>
+        <Link href="https://t.co/nL12021X0s" sx={iconWrapStyle} external>
           <NoteAltOutlinedIcon sx={{ mr: 0.5 }} />
           スタッフ参加希望フォーム
         </Link>

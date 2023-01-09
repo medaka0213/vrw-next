@@ -7,8 +7,18 @@ import Logo from "../components/Logo";
 export default function Home() {
   return (
     <>
-      <Logo sx={{ m: 3 }} />
-      <Aboutus sx={{ my: 3 }} />
+      <Logo
+        sx={{
+          m: 3,
+          mx: "auto",
+          maxWidth: "600px",
+        }}
+      />
+      <Aboutus
+        sx={{
+          my: 3,
+        }}
+      />
     </>
   );
 }

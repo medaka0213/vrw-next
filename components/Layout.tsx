@@ -81,7 +81,11 @@ function ResponsiveDrawer(props: React.PropsWithChildren<any>) {
       <Divider />
       <List>
         <ListItem key={"twitter"} disablePadding>
-          <ListItemButton component="a" href="/">
+          <ListItemButton
+            component="a"
+            href="https://twitter.com/vr_launch"
+            target="_blank"
+          >
             <ListItemIcon>
               <TwitterIcon />
             </ListItemIcon>
@@ -89,7 +93,11 @@ function ResponsiveDrawer(props: React.PropsWithChildren<any>) {
           </ListItemButton>
         </ListItem>
         <ListItem key={"calendar"} disablePadding>
-          <ListItemButton component="a" href="/">
+          <ListItemButton
+            component="a"
+            href="https://t.co/nL12021X0s"
+            target="_blank"
+          >
             <ListItemIcon>
               <EventIcon />
             </ListItemIcon>
@@ -97,7 +105,11 @@ function ResponsiveDrawer(props: React.PropsWithChildren<any>) {
           </ListItemButton>
         </ListItem>
         <ListItem key={"discord"} disablePadding>
-          <ListItemButton component="a" href="/">
+          <ListItemButton
+            component="a"
+            href="https://t.co/cjfnxjZrZG"
+            target="_blank"
+          >
             <ListItemIcon>
               <ForumIcon />
             </ListItemIcon>
@@ -197,6 +209,9 @@ function ResponsiveDrawer(props: React.PropsWithChildren<any>) {
             p: 1,
             mx: "auto",
             maxWidth: "1280px",
+            "@media (min-width: 600px)": {
+              p: 3,
+            },
           }}
         >
           {props.children}

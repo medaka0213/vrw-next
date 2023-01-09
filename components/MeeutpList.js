@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 
 import { useRouter } from "next/router";
 
-export const MissionListItem = ({ item }) => {
+export const MeeutpListItem = ({ item }) => {
   const router = useRouter();
   let img_url = item.image_url || item.rocket_image_url;
   if (
@@ -37,7 +37,7 @@ export const MissionListItem = ({ item }) => {
         />
       </ListItemAvatar>
       <ListItemText
-        primary={item.missionTitle_JP()}
+        primary={item.title_JP}
         secondary={
           <React.Fragment>
             <Typography
@@ -46,11 +46,10 @@ export const MissionListItem = ({ item }) => {
               variant="body2"
               color="text.primary"
             >
-              {item.datetime_time_type === "CONFIRMED" && "日本時間"}{" "}
-              {item.datetime_format_JP}
+              開場 ... 日本時間 {item.datetime_format()}
             </Typography>
             <Typography>
-              {item.get_jp_value("overview") && item.get_jp_value("overview")}
+              {item.type === "live" ? "生中継の部" : "アーカイブの部"}
             </Typography>
           </React.Fragment>
         }
@@ -74,7 +73,7 @@ const App = ({ items }) => {
               borderBottom: "1px solid #e0e0e0",
             }}
           >
-            <MissionListItem item={item} />
+            <MeeutpListItem item={item} />
           </Grid>
         ))}
       </Grid>

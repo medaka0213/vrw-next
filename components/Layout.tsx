@@ -184,6 +184,7 @@ function ResponsiveDrawer(props: React.PropsWithChildren<any>) {
           flexGrow: 1,
           width: { md: `calc(100% - ${drawerWidth}px)` },
           height: "100%",
+          minHeight: "100vh",
           backgroundColor: "#eee",
         }}
       >
@@ -194,8 +195,8 @@ function ResponsiveDrawer(props: React.PropsWithChildren<any>) {
             borderRadius: "4px",
             backgroundColor: "#fff",
             p: 1,
-            maxWidth: "1280px",
             mx: "auto",
+            maxWidth: "1280px",
           }}
         >
           {props.children}

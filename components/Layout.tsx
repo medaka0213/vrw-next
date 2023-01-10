@@ -205,13 +205,11 @@ function ResponsiveDrawer(props: React.PropsWithChildren<any>) {
           sx={{
             border: "1px solid #eaeaea",
             borderRadius: "4px",
-            backgroundColor: "#fff",
+            backgroundColor: "transparent",
             p: 1,
             mx: "auto",
             maxWidth: "1280px",
-            "@media (min-width: 600px)": {
-              p: 3,
-            },
+            "@media (min-width: 600px)": {},
           }}
         >
           {props.children}

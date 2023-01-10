@@ -2,7 +2,9 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import Head from "next/head";
 import Router from "next/router";
+
 import { Box } from "@mui/material";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import MissionList from "@/components/MissionList";
@@ -110,7 +112,6 @@ const App = () => {
   }, [dispatch, query]);
 
   console.log("queries", queries);
-
   return (
     <>
       <Head>
@@ -119,6 +120,11 @@ const App = () => {
       <Box
         sx={{
           m: 1,
+          mb: 2,
+          border: "1px solid #eaeaea",
+          borderRadius: "4px",
+          backgroundColor: "background.paper",
+          p: 1.5,
         }}
       >
         <div className="my-3">
@@ -138,7 +144,16 @@ const App = () => {
           />
         </div>
       </Box>
-      <MissionList items={Items || []} />
+      <Box
+        sx={{
+          m: 1,
+          border: "1px solid #eaeaea",
+          borderRadius: "4px",
+          backgroundColor: "background.paper",
+        }}
+      >
+        <MissionList items={Items || []} />
+      </Box>
     </>
   );
 };

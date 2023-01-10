@@ -27,6 +27,8 @@ import InfoIcon from "@mui/icons-material/Info";
 
 import Router from "next/router";
 
+import Logo from "../components/Logo";
+
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props: React.PropsWithChildren<any>) {
@@ -135,6 +137,7 @@ function ResponsiveDrawer(props: React.PropsWithChildren<any>) {
         sx={{
           width: { md: `calc(100% - ${drawerWidth}px)` },
           ml: { md: `${drawerWidth}px` },
+          backgroundColor: "#004F8A",
         }}
       >
         <Toolbar>
@@ -147,9 +150,11 @@ function ResponsiveDrawer(props: React.PropsWithChildren<any>) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            ロケット打ち上げを観る集会
-          </Typography>
+          <Logo
+            sx={{
+              height: "40px",
+            }}
+          />
         </Toolbar>
       </AppBar>
       <Box
@@ -207,7 +212,6 @@ function ResponsiveDrawer(props: React.PropsWithChildren<any>) {
             borderRadius: "4px",
             backgroundColor: "transparent",
             p: 1,
-            mx: "auto",
             maxWidth: "1280px",
             "@media (min-width: 600px)": {},
           }}

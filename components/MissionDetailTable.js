@@ -9,10 +9,6 @@ const App = ({ item, sx }) => {
       value: item.datetime_format_JP,
     },
     {
-      key: "ミッション名",
-      value: item.get_jp_value("name"),
-    },
-    {
       key: "ミッション概要",
       value: item.get_jp_value("overview"),
     },
@@ -41,10 +37,6 @@ const App = ({ item, sx }) => {
     {
       key: "日時",
       value: item.datetime_format_JP,
-    },
-    {
-      key: "ミッション名",
-      value: item.get_jp_value("name"),
     },
     {
       key: "関連リンク",

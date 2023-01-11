@@ -18,7 +18,7 @@ const iconWrapStyle = {
   AlignItems: "center",
 };
 
-const App = ({ sx }) => {
+const App = ({ sx = {} }) => {
   return (
     <Box
       sx={{

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
@@ -15,7 +14,6 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 
 import IconButton from "@mui/material/IconButton";
 import HomeIcon from "@mui/icons-material/Home";
@@ -151,6 +149,7 @@ function ResponsiveDrawer(props: React.PropsWithChildren<any>) {
             <MenuIcon />
           </IconButton>
           <Logo
+            variant="white"
             sx={{
               height: "40px",
             }}

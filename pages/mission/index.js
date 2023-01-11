@@ -8,6 +8,7 @@ import { Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
 import MissionList from "@/components/MissionList";
+import MainBox from "@/components/common/MainBox";
 
 import {
   GET_ITEMS,
@@ -117,43 +118,31 @@ const App = () => {
       <Head>
         <title>{isReceived ? `List: ${type}` : "loading..."}</title>
       </Head>
-      <Box
+      <MainBox
         sx={{
-          m: 1,
-          mb: 2,
-          border: "1px solid #eaeaea",
-          borderRadius: "4px",
-          backgroundColor: "background.paper",
-          p: 1.5,
-        }}
-      >
-        <div className="my-3">
-          <SearchDetailForm
-            onSubmit={(params) => {
-              movePage(
-                params.map((p) => {
-                  return {
-                    key: p.split("=")[0],
-                    value: p.split("=")[1],
-                  };
-                })
-              );
-            }}
-            keys={keys}
-            queries={queries}
-          />
-        </div>
-      </Box>
-      <Box
-        sx={{
-          m: 1,
           border: "1px solid #eaeaea",
           borderRadius: "4px",
           backgroundColor: "background.paper",
         }}
       >
+        <SearchDetailForm
+          onSubmit={(params) => {
+            movePage(
+              params.map((p) => {
+                return {
+                  key: p.split("=")[0],
+                  value: p.split("=")[1],
+                };
+              })
+            );
+          }}
+          keys={keys}
+          queries={queries}
+        />
+      </MainBox>
+      <MainBox>
         <MissionList items={Items || []} />
-      </Box>
+      </MainBox>
     </>
   );
 };

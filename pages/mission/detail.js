@@ -7,7 +7,7 @@ import { Grid, Box, LinearProgress, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import { DataGrid } from "@mui/x-data-grid";
+import { ItemListTable } from "react-vrw";
 
 import {
   ItemReducer,
@@ -166,35 +166,7 @@ const App = () => {
                 <MissionDetailTable item={Item} />
               </CardContent>
             </Card>
-            <Box
-              sx={{
-                my: 2,
-                height: 400,
-                width: "100%",
-                backgroundColor: "background.paper",
-              }}
-            >
-              <DataGrid
-                columns={[
-                  {
-                    field: "t",
-                    headerName: "T-",
-                  },
-                  {
-                    field: "desc_jp",
-                    headerName: "",
-                  },
-                ]}
-                rows={countdown.t_minus.map((e, i) => {
-                  return {
-                    t: `${e.hours}:${e.minutes}:${e.seconds}`,
-                    ...e,
-                  };
-                })}
-                getRowId={(row) => generateRandom()}
-                rowsPerPageOptions={[5]}
-              />
-            </Box>
+
             <Grid
               container
               sx={{
@@ -264,6 +236,65 @@ const App = () => {
                 )}
               </Grid>
             </Grid>
+            <Box
+              sx={{
+                my: 2,
+                height: 400,
+                width: "100%",
+                backgroundColor: "background.paper",
+              }}
+            >
+              <ItemListTable
+                sx={{
+                  my: 2,
+                }}
+                columns={[
+                  {
+                    field: "t",
+                    headerName: "T -",
+                  },
+                  {
+                    field: "desc_jp",
+                    headerName: " ",
+                  },
+                ]}
+                rows={countdown.t_minus.map((e, i) => {
+                  return {
+                    t: `${String(e.hours).padStart(2, "0")}:${String(
+                      e.minutes
+                    ).padStart(2, "0")}:${String(e.seconds).padStart(2, "0")}`,
+                    ...e,
+                  };
+                })}
+                getRowId={(row) => generateRandom()}
+                rowsPerPageOptions={[5]}
+              />
+              <ItemListTable
+                sx={{
+                  my: 2,
+                }}
+                columns={[
+                  {
+                    field: "t",
+                    headerName: "T +",
+                  },
+                  {
+                    field: "desc_jp",
+                    headerName: " ",
+                  },
+                ]}
+                rows={countdown.t_plus.map((e, i) => {
+                  return {
+                    t: `${String(e.hours).padStart(2, "0")}:${String(
+                      e.minutes
+                    ).padStart(2, "0")}:${String(e.seconds).padStart(2, "0")}`,
+                    ...e,
+                  };
+                })}
+                getRowId={(row) => generateRandom()}
+                rowsPerPageOptions={[5]}
+              />
+            </Box>
           </Box>
         </>
       )}

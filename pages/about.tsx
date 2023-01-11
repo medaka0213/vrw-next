@@ -1,9 +1,12 @@
+import MainBox from "../components/common/MainBox";
 import Aboutus from "../components/Aboutus";
 
 export default function Home() {
   return (
     <>
-      <Aboutus sx={{ my: 3 }} />
+      <MainBox>
+        <Aboutus />
+      </MainBox>
     </>
   );
 }

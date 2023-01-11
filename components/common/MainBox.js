@@ -9,6 +9,12 @@ const App = ({ sx = {}, children, ...props }) => {
         width: "100%",
         backgroundColor: "background.paper",
         ...sx,
+        "@media (max-width: 768px)": {
+          mx: 0,
+          my: 1,
+          p: 0,
+          pr: 0,
+        },
       }}
     >
       {children}

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { styled, useTheme } from "@mui/material/styles";
 
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
@@ -22,103 +23,113 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import ForumIcon from "@mui/icons-material/Forum";
 import EventIcon from "@mui/icons-material/Event";
 import InfoIcon from "@mui/icons-material/Info";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 import Router from "next/router";
 
 import Logo from "../components/Logo";
+import { Layout } from "react-vrw";
 
 const drawerWidth = 240;
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
+
+const drawer = (
+  <div>
+    <List>
+      <ListItem key={"home"} disablePadding>
+        <ListItemButton onClick={() => Router.push("/")}>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary={"HOME"} />
+        </ListItemButton>
+      </ListItem>
+      <ListItem key={"about"} disablePadding>
+        <ListItemButton onClick={() => Router.push("/about")}>
+          <ListItemIcon>
+            <InfoIcon />
+          </ListItemIcon>
+          <ListItemText primary={"ABOUT"} />
+        </ListItemButton>
+      </ListItem>
+    </List>
+    <Divider />
+    <List>
+      <ListItem key={"mission"} disablePadding>
+        <ListItemButton onClick={() => Router.push("/mission")}>
+          <ListItemIcon>
+            <SearchIcon />
+          </ListItemIcon>
+          <ListItemText primary={"ミッション"} />
+        </ListItemButton>
+      </ListItem>
+      <ListItem key={"mmetup"} disablePadding>
+        <ListItemButton onClick={() => Router.push("/meetup")}>
+          <ListItemIcon>
+            <SearchIcon />
+          </ListItemIcon>
+          <ListItemText primary={"集会"} />
+        </ListItemButton>
+      </ListItem>
+    </List>
+    <Divider />
+    <List>
+      <ListItem key={"twitter"} disablePadding>
+        <ListItemButton
+          component="a"
+          href="https://twitter.com/vr_launch"
+          target="_blank"
+        >
+          <ListItemIcon>
+            <TwitterIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Twitter @vr_launch"} />
+        </ListItemButton>
+      </ListItem>
+      <ListItem key={"calendar"} disablePadding>
+        <ListItemButton
+          component="a"
+          href="https://t.co/nL12021X0s"
+          target="_blank"
+        >
+          <ListItemIcon>
+            <EventIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Googleカレンダー"} />
+        </ListItemButton>
+      </ListItem>
+      <ListItem key={"discord"} disablePadding>
+        <ListItemButton
+          component="a"
+          href="https://t.co/cjfnxjZrZG"
+          target="_blank"
+        >
+          <ListItemIcon>
+            <ForumIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Discord"} />
+        </ListItemButton>
+      </ListItem>
+    </List>
+  </div>
+);
 
 function ResponsiveDrawer(props: React.PropsWithChildren<any>) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const theme = useTheme();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
-  const drawer = (
-    <div>
-      <Toolbar />
-      <Divider />
-      <List>
-        <ListItem key={"home"} disablePadding>
-          <ListItemButton onClick={() => Router.push("/")}>
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary={"HOME"} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem key={"about"} disablePadding>
-          <ListItemButton onClick={() => Router.push("/about")}>
-            <ListItemIcon>
-              <InfoIcon />
-            </ListItemIcon>
-            <ListItemText primary={"ABOUT"} />
-          </ListItemButton>
-        </ListItem>
-      </List>
-      <Divider />
-      <List>
-        <ListItem key={"mission"} disablePadding>
-          <ListItemButton onClick={() => Router.push("/mission")}>
-            <ListItemIcon>
-              <SearchIcon />
-            </ListItemIcon>
-            <ListItemText primary={"ミッション"} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem key={"mmetup"} disablePadding>
-          <ListItemButton onClick={() => Router.push("/meetup")}>
-            <ListItemIcon>
-              <SearchIcon />
-            </ListItemIcon>
-            <ListItemText primary={"集会"} />
-          </ListItemButton>
-        </ListItem>
-      </List>
-      <Divider />
-      <List>
-        <ListItem key={"twitter"} disablePadding>
-          <ListItemButton
-            component="a"
-            href="https://twitter.com/vr_launch"
-            target="_blank"
-          >
-            <ListItemIcon>
-              <TwitterIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Twitter @vr_launch"} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem key={"calendar"} disablePadding>
-          <ListItemButton
-            component="a"
-            href="https://t.co/nL12021X0s"
-            target="_blank"
-          >
-            <ListItemIcon>
-              <EventIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Googleカレンダー"} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem key={"discord"} disablePadding>
-          <ListItemButton
-            component="a"
-            href="https://t.co/cjfnxjZrZG"
-            target="_blank"
-          >
-            <ListItemIcon>
-              <ForumIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Discord"} />
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </div>
-  );
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
@@ -139,21 +150,25 @@ function ResponsiveDrawer(props: React.PropsWithChildren<any>) {
         }}
       >
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Logo
-            variant="white"
-            sx={{
-              height: "40px",
-            }}
-          />
+          {!mobileOpen && (
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { md: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
+          {!mobileOpen && (
+            <Logo
+              variant="white"
+              sx={{
+                height: "40px",
+              }}
+            />
+          )}
         </Toolbar>
       </AppBar>
       <Box
@@ -178,9 +193,30 @@ function ResponsiveDrawer(props: React.PropsWithChildren<any>) {
             },
           }}
         >
+          <DrawerHeader>
+            {mobileOpen && (
+              <Logo
+                variant="jp"
+                sx={{
+                  height: "40px",
+                  mr: "auto",
+                  ml: 1,
+                }}
+              />
+            )}
+            <IconButton onClick={handleDrawerToggle}>
+              {theme.direction === "ltr" ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
+          </DrawerHeader>
           {drawer}
         </Drawer>
         <Drawer
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
           variant="permanent"
           sx={{
             display: { xs: "none", md: "block" },
@@ -189,8 +225,24 @@ function ResponsiveDrawer(props: React.PropsWithChildren<any>) {
               width: drawerWidth,
             },
           }}
-          open
         >
+          <DrawerHeader>
+            <Logo
+              variant="jp"
+              sx={{
+                height: "40px",
+                mr: "auto",
+                ml: 1,
+              }}
+            />
+            <IconButton onClick={handleDrawerToggle}>
+              {theme.direction === "ltr" ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
+          </DrawerHeader>
           {drawer}
         </Drawer>
       </Box>
@@ -229,6 +281,10 @@ ResponsiveDrawer.propTypes = {
    */
   window: PropTypes.func,
   children: PropTypes.node,
+};
+
+export const ResponsiveLayout = (props: React.PropsWithChildren<{}>) => {
+  return <Layout drawer={drawer}>{props.children}</Layout>;
 };
 
 export default ResponsiveDrawer;

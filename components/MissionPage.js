@@ -8,14 +8,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 
-import {
-  ItemReducer,
-  GET_SINGLE_ITEM,
-  GET_REFERENCE,
-  GET_RELATION,
-  Link,
-  Youtube,
-} from "react-vrw";
+import { ItemReducer, Link, Youtube, DialogWrapper } from "react-vrw";
 
 import MissionDetailTable from "@/components/MissionDetailTable";
 import MainBox from "@/components/common/MainBox";
@@ -36,25 +29,24 @@ const App = ({ type }) => {
           p: 0,
         }}
       >
-        <Card
-          sx={{
-            display: "flex",
-            borderRadius: "0px",
-            "@media (max-width: 768px)": { display: "block" },
-          }}
-        >
-          <CardMedia
-            component="img"
-            image={Item.image_url || Item.rocket_image_url}
-            alt={"mission thumbnail"}
+        <Grid container>
+          <Grid xs={12} md={6}>
+            <DialogWrapper>
+              <img
+                src={Item.image_url || Item.rocket_image_url}
+                alt={"mission thumbnail"}
+                width={"100%"}
+                height={"auto"}
+              />
+            </DialogWrapper>
+          </Grid>
+          <Grid
+            xs={12}
+            md={6}
             sx={{
-              maxWidth: "50%",
-              "@media (max-width: 768px)": {
-                maxWidth: "100%",
-              },
+              p: 2,
             }}
-          />
-          <CardContent>
+          >
             {Item.image_url ? (
               <Typography variant="caption">
                 Image Credit: {Item.image_credit}
@@ -81,8 +73,8 @@ const App = ({ type }) => {
               {Item.get_jp_value("name")}
             </Typography>
             <MissionDetailTable item={Item} />
-          </CardContent>
-        </Card>
+          </Grid>
+        </Grid>
       </MainBox>
       <MainBox
         sx={{
@@ -149,7 +141,11 @@ const App = ({ type }) => {
         </Grid>
       </MainBox>
       {slide && (
-        <MainBox>
+        <MainBox
+          sx={{
+            p: 0,
+          }}
+        >
           <SlideShow slide={slide} />
         </MainBox>
       )}

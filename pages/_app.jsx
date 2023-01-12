@@ -11,7 +11,7 @@ import theme from "../theme";
 import createEmotionCache from "../createEmotionCache";
 import "../styles/globals.css";
 
-import Layout from "../components/Layout";
+import {ResponsiveLayout} from "../components/Layout";
 
 const clientSideEmotionCache = createEmotionCache();
 const wrapper = createWrapper(makeStore, { debug: true });
@@ -31,9 +31,9 @@ function App(props) {
       </Head>
       <ThemeProvider theme={theme} >
         <CssBaseline />
-        <Layout>
+        <ResponsiveLayout>
           <Component {...pageProps} />
-        </Layout>
+        </ResponsiveLayout>
       </ThemeProvider>
     </CacheProvider>
   );

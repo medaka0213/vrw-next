@@ -1,4 +1,5 @@
 import * as React from "react";
+import Router from "next/router";
 
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
@@ -14,9 +15,10 @@ import EventIcon from "@mui/icons-material/Event";
 import InfoIcon from "@mui/icons-material/Info";
 import { Box, Paper, Typography, Button } from "@mui/material";
 
-import Router from "next/router";
-
 import { Layout, Link } from "react-vrw";
+
+import MainBox from "./common/MainBox";
+import SideBarItem from "./SideBarItem";
 
 const drawer = (
   <div>
@@ -102,17 +104,7 @@ const drawer = (
 export function Footer() {
   //レイアウト内の一番下に表示されるフッター
   return (
-    <Paper
-      className="footer"
-      sx={{
-        justifyContent: "center",
-        align: "center",
-        width: "100%",
-        py: 1,
-        zIndex: "drawer",
-      }}
-      elevation={3}
-    >
+    <Box>
       <Box
         display="flex"
         justifyContent="center"
@@ -169,17 +161,54 @@ export function Footer() {
           © 2023 Virtual Rocket Watching
         </Typography>
       </Box>
-    </Paper>
+    </Box>
   );
 }
+
+const SideBar = () => {
+  return (
+    <Box
+      sx={{
+        height: "100%",
+        width: "100%",
+        py: {
+          xs: 0,
+          md: 2,
+        },
+      }}
+    >
+      <MainBox sx={{ width: "100%", m: 0, p: 0 }}>
+        <Typography variant="subtitle1" sx={{ m: 0, pt: 1 }} align="center">
+          直近のイベント一覧
+        </Typography>
+        <SideBarItem mode="missions_this_week" />
+      </MainBox>
+    </Box>
+  );
+};
 
 export const ResponsiveLayout = (props: React.PropsWithChildren<{}>) => {
   return (
     <>
-      <Layout bgColor="#004F8A" drawer={drawer}>
-        {props.children}
+      <Layout
+        footer={<Footer />}
+        bgColor="#004F8A"
+        drawer={drawer}
+        sidebar={<SideBar />}
+      >
+        <Box
+          sx={{
+            height: "100%",
+            width: "100%",
+            p: {
+              xs: 0,
+              md: 2,
+            },
+          }}
+        >
+          {props.children}
+        </Box>
       </Layout>
-      <Footer />
     </>
   );
 };

@@ -24,6 +24,31 @@ const App = ({ type }) => {
   const countdown = itemReducer.getRefItem("countdown");
   const slide = itemReducer.getRelItem("slide");
 
+  const ImageDialog = () => (
+    <DialogWrapper>
+      <img
+        src={Item.image_url || Item.rocket_image_url}
+        alt={"mission thumbnail"}
+        width={"100%"}
+        height={"auto"}
+      />
+      {Item.image_url ? (
+        <Typography variant="body2" sx={{ textAlign: "center" }}>
+          Image Credit: {Item.image_credit}
+        </Typography>
+      ) : (
+        Item.rocket_image_url && (
+          <Typography variant="body2" sx={{ textAlign: "center" }}>
+            Image Credit: via{" "}
+            <Link href={"http://nextspaceflight.com"} external>
+              nextspaceflight.com
+            </Link>
+          </Typography>
+        )
+      )}
+    </DialogWrapper>
+  );
+
   return (
     <>
       <MainBox
@@ -32,37 +57,22 @@ const App = ({ type }) => {
         }}
       >
         <Grid container>
-          <Grid xs={12} md={6}>
-            <DialogWrapper>
-              <img
-                src={Item.image_url || Item.rocket_image_url}
-                alt={"mission thumbnail"}
-                width={"100%"}
-                height={"auto"}
-              />
-            </DialogWrapper>
+          <Grid
+            xs={6}
+            display={{
+              xs: "none",
+              lg: "block",
+            }}
+          >
+            <ImageDialog />
           </Grid>
           <Grid
             xs={12}
-            md={6}
+            lg={6}
             sx={{
               p: 2,
             }}
           >
-            {Item.image_url ? (
-              <Typography variant="caption">
-                Image Credit: {Item.image_credit}
-              </Typography>
-            ) : (
-              Item.rocket_image_url && (
-                <Typography variant="body2">
-                  Image Credit:{" "}
-                  <Link href={"http://nextspaceflight.com"} external>
-                    nextspaceflight.com
-                  </Link>
-                </Typography>
-              )
-            )}
             <Typography
               variant="h4"
               sx={{

@@ -11,6 +11,8 @@ import Typography from "@mui/material/Typography";
 
 import { useRouter } from "next/router";
 
+import MissionBadge from "./MissionBadge";
+
 export const MeeutpListItem = ({ item }) => {
   const router = useRouter();
   let img_url = item.image_url || item.rocket_image_url;
@@ -29,12 +31,14 @@ export const MeeutpListItem = ({ item }) => {
       onClick={() => router.push(item.itemDetailPath("pub"))}
     >
       <ListItemAvatar>
-        <Avatar
-          alt="Remy Sharp"
-          src={img_url}
-          variant="square"
-          sx={{ width: 72, height: 72, mr: 2 }}
-        />
+        <MissionBadge item={item}>
+          <Avatar
+            alt="Remy Sharp"
+            src={img_url}
+            variant="square"
+            sx={{ width: 72, height: 72, mr: 2 }}
+          />
+        </MissionBadge>
       </ListItemAvatar>
       <ListItemText
         primary={item.title_JP}

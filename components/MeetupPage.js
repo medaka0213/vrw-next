@@ -1,10 +1,9 @@
-import { useRouter } from "next/router";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 
-import { Grid, Box, LinearProgress, Typography } from "@mui/material";
+import { Grid, Box, Typography } from "@mui/material";
 
-import { ItemReducer, Link, Youtube, DialogWrapper, Meetup } from "react-vrw";
+import { ItemReducer, Link, DialogWrapper, Meetup } from "react-vrw";
 
 import MeeutpDetailTable from "@/components/MeeutpDetailTable";
 import MainBox from "@/components/common/MainBox";
@@ -53,7 +52,7 @@ const App = ({ type }) => {
               </Typography>
             )}
             <Typography
-              variant="h4"
+              variant="h5"
               sx={{
                 fontWeight: "bold",
                 mt: 3,

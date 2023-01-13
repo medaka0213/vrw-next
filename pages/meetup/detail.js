@@ -1,12 +1,17 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import { LinearProgress } from "@mui/material";
+
 import {
   ItemReducer,
   GET_SINGLE_ITEM,
   GET_REFERENCE,
   GET_RELATION,
 } from "react-vrw";
+
+import MeetupPage from "@/components/MeetupPage";
 
 const App = () => {
   const type = "meetup";
@@ -34,7 +39,12 @@ const App = () => {
     load();
   }, [pk]);
 
-  return JSON.stringify(Item);
+  return (
+    <>
+      {!isReceived && <LinearProgress />}
+      {isReceived && <MeetupPage type={type} />}
+    </>
+  );
 };
 
 export default App;

@@ -1,9 +1,19 @@
 import DetailTable from "./DetailTable";
-import { Link } from "react-vrw";
+import { Link, CountDownClock } from "react-vrw";
+import { Typography } from "@mui/material";
 
 const App = ({ item, sx }) => {
   console.log("item", item);
   const items_launch = [
+    {
+      key: "カウントダウン",
+      value:
+        item.datetime_time_type === "CONFIRMED" ? (
+          <CountDownClock datetime_iso={item.datetime} />
+        ) : (
+          "打ち上げ時刻が確定していません"
+        ),
+    },
     {
       key: "日時",
       value: item.datetime_format_JP,
@@ -34,6 +44,15 @@ const App = ({ item, sx }) => {
     },
   ];
   const items_event = [
+    {
+      key: "カウントダウン",
+      value:
+        item.datetime_time_type === "CONFIRMED" ? (
+          <CountDownClock datetime_iso={item.datetime} />
+        ) : (
+          "打ち上げ時刻が確定していません"
+        ),
+    },
     {
       key: "日時",
       value: item.datetime_format_JP,

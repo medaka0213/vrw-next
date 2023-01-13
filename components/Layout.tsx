@@ -1,4 +1,5 @@
 import * as React from "react";
+import dynamic from "next/dynamic";
 import Router from "next/router";
 
 import Divider from "@mui/material/Divider";
@@ -18,7 +19,6 @@ import { Box, Paper, Typography, Button } from "@mui/material";
 import { Layout, Link } from "react-vrw";
 
 import MainBox from "./common/MainBox";
-import SideBarItem from "./SideBarItem";
 
 const drawer = (
   <div>
@@ -165,6 +165,8 @@ export function Footer() {
   );
 }
 
+const SideBarItem = dynamic(() => import("./SideBarItem"));
+
 const SideBar = () => {
   return (
     <Box
@@ -178,10 +180,7 @@ const SideBar = () => {
       }}
     >
       <MainBox sx={{ width: "100%", m: 0, p: 0 }}>
-        <Typography variant="subtitle1" sx={{ m: 0, pt: 1 }} align="center">
-          直近のイベント一覧
-        </Typography>
-        <SideBarItem mode="missions_this_week" />
+        <SideBarItem />
       </MainBox>
     </Box>
   );

@@ -5,11 +5,11 @@ interface ParamItem {
   value: number | string;
 }
 
-const fetGetItems = async (type: string, params: ParamItem[]) => {
+export const fetGetItems = async (type: string, params: ParamItem[]) => {
   let res = await api.get(
     `/q/${type}/?${(params || []).map((p) => `${p.key}=${p.value}`).join("&")}`
   );
-  return ParseItemList(res.payload?.Items || []);
+  return ParseItemList(res.payload?.Items || []).reverse();
 };
 
 const getDatetimeRange = (dt: any = new Date()) => {

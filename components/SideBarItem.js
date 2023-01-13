@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
-import { CountDownClock } from "react-vrw";
+import { useDispatch, useSelector } from "react-redux";
 
 import LinerProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
@@ -13,27 +14,27 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-import { getEvents } from "../lib/client";
+import { TabsParent, GET_ITEMS, SEARCH_ITEMS, DEFAULT_QUERY } from "react-vrw";
+
+import { getEvents, fetGetItems } from "../lib/client";
 import MissionIcon from "./MissionIcon";
 
-const App = ({ mode, ...props }) => {
+const getParams = (type) => {
+  return DEFAULT_QUERY[type]
+    ? DEFAULT_QUERY[type]()
+    : [
+        {
+          key: "limit",
+          value: 1000,
+        },
+      ];
+};
+
+const SmallItemList = ({ items, loading, ...props }) => {
   const router = useRouter();
-
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const load = async () => {
-    setLoading(true);
-    let items = await getEvents(mode);
-    setItems(items);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    load();
-  }, [mode]);
 
   return (
     <List {...props}>
@@ -90,6 +91,131 @@ const App = ({ mode, ...props }) => {
         );
       })}
     </List>
+  );
+};
+
+const ItemList = ({ mode, ...props }) => {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const load = async () => {
+    setLoading(true);
+    let items = await getEvents();
+    setItems(items);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    load();
+  }, [mode]);
+
+  return (
+    <>
+      <Typography
+        variant="caption"
+        align="center"
+        color={"text.secondary"}
+        sx={{
+          mx: 2,
+        }}
+      >
+        最近の項目を表示しています
+      </Typography>
+      <SmallItemList items={items} loading={loading} {...props} />
+    </>
+  );
+};
+
+const ItemListByType = ({ type, ...props }) => {
+  const router = useRouter();
+
+  const itemReducer = useSelector((s) => s.itemReducer[type]);
+  const { isReceived, Items = [] } = itemReducer || Object.create(null);
+
+  const [loading, setLoading] = useState(false);
+  const [fetchedItems, setFetchedItems] = useState([]);
+
+  const load = async () => {
+    setLoading(true);
+    const params = getParams(type);
+    let items = await fetGetItems(type, params);
+    setFetchedItems(items);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (!Items?.length) {
+      load();
+    }
+  }, [type]);
+
+  return (
+    <>
+      <Typography
+        variant="caption"
+        align="center"
+        color={"text.secondary"}
+        sx={{
+          mx: 2,
+        }}
+      >
+        {Items?.length
+          ? "前回の検索結果を表示しています"
+          : "最近の項目を表示しています"}
+      </Typography>
+      <SmallItemList
+        items={Items?.length ? Items.slice().reverse() : fetchedItems}
+        loading={loading}
+        {...props}
+      />
+      <Button
+        variant="outlined"
+        onClick={() => router.push(`/${type}`)}
+        sx={{
+          width: "100%",
+        }}
+      >
+        検索画面へ
+      </Button>
+    </>
+  );
+};
+
+const App = () => {
+  const router = useRouter();
+  const [index, setIndex] = useState(0);
+  const [prevPath, setPrevPath] = useState(router.pathname);
+
+  useEffect(() => {
+    console.log("type", router.pathname);
+    if (router.pathname === "/mission/detail" && prevPath === "/mission") {
+      setIndex(1);
+    } else if (router.pathname === "/meetup/detail" && prevPath === "/meetup") {
+      setIndex(2);
+    } else {
+      setIndex(0);
+    }
+    setPrevPath(router.pathname);
+  }, [router.pathname]);
+
+  return (
+    <TabsParent
+      index={index}
+      list={[
+        {
+          title: "カレンダー",
+          content: <ItemList />,
+        },
+        {
+          title: "ミッション",
+          content: <ItemListByType type="mission" />,
+        },
+        {
+          title: "集会",
+          content: <ItemListByType type="meetup" />,
+        },
+      ]}
+    ></TabsParent>
   );
 };
 

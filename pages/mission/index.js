@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import Head from "next/head";
 import Router from "next/router";
 
-import { LinearProgress } from "@mui/material";
+import { LinearProgress, Typography } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -117,7 +117,7 @@ const App = () => {
   return (
     <>
       <Head>
-        <title>{isReceived ? `List: ${type}` : "loading..."}</title>
+        <title>{isReceived ? `ミッションを検索する` : "loading..."}</title>
       </Head>
       <MainBox
         sx={{
@@ -140,6 +140,9 @@ const App = () => {
           keys={keys}
           queries={queries}
         />
+        <Typography variant="caption">
+          注意: 日本語未対応です。英名・国際標準時で検索してください。
+        </Typography>
       </MainBox>
       {isReceived ? (
         <MainBox>

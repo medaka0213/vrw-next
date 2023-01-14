@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import Head from "next/head";
 import Router from "next/router";
-import { Box } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
 import MeeutpList from "@/components/MeeutpList";
@@ -116,7 +116,7 @@ const App = () => {
   return (
     <>
       <Head>
-        <title>{isReceived ? `List: ${type}` : "loading..."}</title>
+        <title>{isReceived ? `集会を検索する` : "loading..."}</title>
       </Head>
       <MainBox>
         <SearchDetailForm
@@ -133,6 +133,9 @@ const App = () => {
           keys={keys}
           queries={queries}
         />
+        <Typography variant="caption">
+          注意: 日本語未対応です。英名・国際標準時で検索してください。
+        </Typography>
       </MainBox>
       <MainBox>
         <MeeutpList items={Items || []} />

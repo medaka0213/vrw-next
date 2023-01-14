@@ -5,7 +5,7 @@ const OgpHead = ({
   thumbnailUrl = "https://img.virtualrocketwatching.net/image/image_3636fb8c-5931-4993-82c9-1745ce031d0e.jpeg",
   description = "「ロケみる集会」ホームページ",
   card = "summary",
-  children,
+  children = null,
 }) => {
   return (
     <Head>

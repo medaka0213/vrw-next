@@ -42,7 +42,7 @@ const App = () => {
 
   return (
     <>
-      <OgpHead tit:e="ミッションの詳細情報" />
+      <OgpHead title="ミッションの詳細情報" />
       {!isReceived && <LinearProgress />}
       {isReceived && <MissionPage type={type} />}
     </>

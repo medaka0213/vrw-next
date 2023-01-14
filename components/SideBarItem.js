@@ -37,7 +37,7 @@ const SmallItemList = ({ items, loading, ...props }) => {
       {items.map((item) => {
         return (
           <>
-            <Divider />
+            <Divider key={item.pk + "divider"} />
             <ListItemButton
               key={item.pk}
               onClick={() => router.push(item.itemDetailPath("pub"))}
@@ -53,6 +53,7 @@ const SmallItemList = ({ items, loading, ...props }) => {
                 }}
               >
                 <Typography
+                  key="title"
                   variant="caption"
                   component="div"
                   color={"text.primary"}
@@ -68,6 +69,7 @@ const SmallItemList = ({ items, loading, ...props }) => {
                     : item.missionTitle_JP_Short()}
                 </Typography>
                 <Typography
+                  key="datetime"
                   variant="caption"
                   component="div"
                   color={"text.secondary"}

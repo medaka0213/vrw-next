@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Error404 from "@/components/Error404";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -27,6 +28,7 @@ const App = () => {
     itemReducer.isReferenceReceived &&
     itemReducer.isRelationReceived;
   let { Item } = itemReducer;
+  console.log("Item", Item);
 
   const load = () => {
     if (pk) {
@@ -43,10 +45,12 @@ const App = () => {
   return (
     <>
       <OgpHead title="ミッションの詳細情報">
-        <title>{isReceived ? Item.get_jp_value("name") : "loading..."}</title>
+        <title>
+          {isReceived && Item.pk ? Item.get_jp_value("name") : "loading..."}
+        </title>
       </OgpHead>
       {!isReceived && <LinearProgress />}
-      {isReceived && <MissionPage type={type} />}
+      {isReceived && Item.pk ? <MissionPage type={type} /> : <Error404 />}
     </>
   );
 };

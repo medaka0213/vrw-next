@@ -6,12 +6,11 @@ const App = ({ sx = {}, children, ...props }) => {
     <Paper
       sx={{
         mb: 2,
-        p: 2,
-        backgroundColor: "background.paper",
-        ...sx,
-        "@media (max-width: 768px)": {
-          p: 0,
+        p: {
+          xs: 0,
+          sm: 2,
         },
+        ...sx,
       }}
     >
       {children}

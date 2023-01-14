@@ -11,7 +11,10 @@ import Typography from "@mui/material/Typography";
 
 import { useRouter } from "next/router";
 
+import { SEARCH_ITEMS, sort_array } from "react-vrw";
+
 import MissionBadge from "./MissionBadge";
+import SortForm from "./SortForm";
 
 export const MissionListItem = ({ item }) => {
   const router = useRouter();
@@ -63,26 +66,57 @@ export const MissionListItem = ({ item }) => {
   );
 };
 
-const App = ({ items }) => {
+const App = ({ items: defaultItems }) => {
+  const [items, setItems] = React.useState(defaultItems);
+
+  const handleSubmit = ({ sort, order }) => {
+    let _items = sort_array(defaultItems, [sort]);
+    if (order === "desc") {
+      _items.reverse();
+    }
+    setItems(_items);
+  };
+
   return (
-    <List>
+    <>
       <Grid container>
+        <Grid
+          container
+          xs={12}
+          sx={{
+            borderBottom: "1px solid #eee",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <Grid xs={12} md={"auto"} py={1} pl={1}>
+            <Typography>{defaultItems.length} 件が見つかりました。</Typography>
+          </Grid>
+          <Grid xs={12} md={8} pb={1} px={1}>
+            <SortForm
+              onSubmit={handleSubmit}
+              keys={SEARCH_ITEMS["mission"]}
+              defaultSort="datetime"
+              defaultOrder="asc"
+            />
+          </Grid>
+        </Grid>
         {items.map((item, i) => (
           <Grid
             item
             xs={12}
-            sm={6}
+            lg={6}
             xl={4}
             key={`mission-list-${i}`}
             sx={{
-              borderBottom: "1px solid #e0e0e0",
+              borderBottom: "1px solid #eee",
             }}
           >
             <MissionListItem item={item} />
           </Grid>
         ))}
       </Grid>
-    </List>
+    </>
   );
 };
 

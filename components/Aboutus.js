@@ -1,11 +1,14 @@
-import { Box, Typography, Grid } from "@mui/material";
-import { Link } from "@/components/Link";
+import React from "react";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 import SearchIcon from "@mui/icons-material/Search";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import ForumIcon from "@mui/icons-material/Forum";
 import EventIcon from "@mui/icons-material/Event";
 import NoteAltOutlinedIcon from "@mui/icons-material/NoteAltOutlined";
+
+import { Link } from "@/components/Link";
 
 const iconWrapStyle = {
   display: "inline-flex",

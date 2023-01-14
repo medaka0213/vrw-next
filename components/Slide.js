@@ -1,8 +1,12 @@
-import { Box, Typography } from "@mui/material";
-import { SlideShow, Link } from "react-vrw";
+import React from "react";
+
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+import { SlideShow, Link } from "react-vrw";
 
 const App = ({ slide, ...props }) => {
   return (

@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { Grid, Box, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 
 import { ItemReducer, DialogWrapper, Meetup } from "react-vrw";
 import { Link } from "@/components/Link";

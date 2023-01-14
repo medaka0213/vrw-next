@@ -1,9 +1,10 @@
 import DetailTable from "./DetailTable";
-import { CountDownClock, TimeRange } from "react-vrw";
-import { Link } from "@/components/Link";
+import { TimeRange } from "react-vrw";
 
-import { Typography, Box } from "@mui/material";
+import Box from "@mui/material/Box";
+
 import SearchIcon from "@mui/icons-material/Search";
+import { Link } from "@/components/Link";
 
 import { getColor } from "../lib/item";
 

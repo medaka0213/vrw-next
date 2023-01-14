@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import Box from "@mui/material/Box";
 
 const logo_white =
   "https://img.virtualrocketwatching.net/image/image_4524f41a-0cb4-470f-b0c2-5dbddb9ff8b4.svg";

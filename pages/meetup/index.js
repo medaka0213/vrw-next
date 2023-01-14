@@ -2,7 +2,10 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import Head from "next/head";
 import Router from "next/router";
-import { LinearProgress, Typography } from "@mui/material";
+
+import LinearProgress from "@mui/material/LinearProgress";
+import Typography from "@mui/material/Typography";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import MeeutpList from "@/components/MeeutpList";

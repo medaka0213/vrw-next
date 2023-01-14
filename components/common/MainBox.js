@@ -1,4 +1,5 @@
-import { Paper } from "@mui/material";
+import React from "react";
+import Paper from "@mui/material/Paper";
 
 const App = ({ sx = {}, children, ...props }) => {
   return (

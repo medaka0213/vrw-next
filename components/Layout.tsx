@@ -14,7 +14,8 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import ForumIcon from "@mui/icons-material/Forum";
 import EventIcon from "@mui/icons-material/Event";
 import InfoIcon from "@mui/icons-material/Info";
-import { Box, Paper, Typography, Button } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 import { Layout } from "react-vrw";
 

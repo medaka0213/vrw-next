@@ -11,6 +11,7 @@ import {
 } from "react-vrw";
 
 import MissionPage from "@/components/MissionPage";
+import OgpHead from "@/components/OgpHead";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const App = () => {
 
   return (
     <>
+      <OgpHead tite="ミッションの詳細情報" />
       {!isReceived && <LinearProgress />}
       {isReceived && <MissionPage type={type} />}
     </>

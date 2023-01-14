@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import MissionList from "@/components/MissionList";
 import MainBox from "@/components/common/MainBox";
+import OgpHead from "@/components/OgpHead";
 
 import {
   GET_ITEMS,
@@ -119,6 +120,7 @@ const App = () => {
       <Head>
         <title>{isReceived ? `ミッションを検索する` : "loading..."}</title>
       </Head>
+      <OgpHead tite="ミッションを検索する" />
       <MainBox
         sx={{
           border: "1px solid #eaeaea",

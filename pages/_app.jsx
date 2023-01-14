@@ -24,7 +24,6 @@ function App(props) {
     <CacheProvider value={emotionCache}>
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
-        <title>ロケット打ち上げを観る集会 - Virtual Rocket Watching</title>
         <link
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossOrigin="anonymous"

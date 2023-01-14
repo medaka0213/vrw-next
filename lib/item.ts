@@ -38,14 +38,14 @@ export const getColor = (item: any): any => {
       };
     }
     return {
-      color: "text.disabled",
+      color: "primary.main",
       badgeColor: "primary",
       jp: "終了",
       en: "Ended",
     };
   }
   return {
-    color: "text.primary",
+    color: "secondary.main",
     badgeColor: "secondary",
     jp: "予定",
     en: "Scheduled",

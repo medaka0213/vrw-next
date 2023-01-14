@@ -12,6 +12,7 @@ import {
 } from "react-vrw";
 
 import MeetupPage from "@/components/MeetupPage";
+import OgpHead from "@/components/OgpHead";
 
 const App = () => {
   const type = "meetup";
@@ -41,6 +42,7 @@ const App = () => {
 
   return (
     <>
+      <OgpHead tite="集会の詳細情報" />
       {!isReceived && <LinearProgress />}
       {isReceived && <MeetupPage type={type} />}
     </>

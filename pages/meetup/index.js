@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import MeeutpList from "@/components/MeeutpList";
 import MainBox from "@/components/common/MainBox";
+import OgpHead from "@/components/OgpHead";
 
 import {
   GET_ITEMS,
@@ -118,6 +119,7 @@ const App = () => {
       <Head>
         <title>{isReceived ? `集会を検索する` : "loading..."}</title>
       </Head>
+      <OgpHead tite="集会を検索する" />
       <MainBox>
         <SearchDetailForm
           onSubmit={(params) => {

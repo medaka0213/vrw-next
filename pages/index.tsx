@@ -8,7 +8,7 @@ export default function Home() {
       <MainBox>
         <Logo
           sx={{
-            m: 3,
+            p: 3,
             mx: "auto",
             maxWidth: "600px",
           }}

@@ -1,13 +1,10 @@
 import { Box, Typography, Grid } from "@mui/material";
 import { Link } from "@/components/Link";
 
-import IconButton from "@mui/material/IconButton";
-import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import ForumIcon from "@mui/icons-material/Forum";
 import EventIcon from "@mui/icons-material/Event";
-import InfoIcon from "@mui/icons-material/Info";
 import NoteAltOutlinedIcon from "@mui/icons-material/NoteAltOutlined";
 
 const iconWrapStyle = {
@@ -23,6 +20,7 @@ const App = ({ sx = {} }) => {
     <Box
       sx={{
         display: "block",
+        p: 3,
         ...sx,
       }}
     >

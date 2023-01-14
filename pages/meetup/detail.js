@@ -49,7 +49,7 @@ const App = () => {
         </title>
       </OgpHead>
       {!isReceived && <LinearProgress />}
-      {isReceived && Item.pk ? <MeetupPage type={type} /> : <Error404 />}
+      {isReceived && (Item.pk ? <MeetupPage type={type} /> : <Error404 />)}
     </>
   );
 };

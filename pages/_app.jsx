@@ -12,6 +12,7 @@ import createEmotionCache from "../createEmotionCache";
 import "../styles/globals.css";
 
 import {ResponsiveLayout} from "../components/Layout";
+import OgpHead from "../components/OgpHead";
 
 const clientSideEmotionCache = createEmotionCache();
 const wrapper = createWrapper(makeStore, { debug: true });
@@ -29,6 +30,7 @@ function App(props) {
           crossOrigin="anonymous"
         ></link>
       </Head>
+      <OgpHead />
       <ThemeProvider theme={theme} >
         <CssBaseline />
         <ResponsiveLayout>

@@ -3,7 +3,8 @@ import { useSelector } from "react-redux";
 
 import { Grid, Box, Typography } from "@mui/material";
 
-import { ItemReducer, Link, DialogWrapper, Meetup } from "react-vrw";
+import { ItemReducer, DialogWrapper, Meetup } from "react-vrw";
+import { Link } from "@/components/Link";
 
 import MeeutpDetailTable from "@/components/MeeutpDetailTable";
 import MainBox from "@/components/common/MainBox";

@@ -1,5 +1,8 @@
 import DetailTable from "./DetailTable";
-import { Link, CountDownClock, TimeRange } from "react-vrw";
+import { CountDownClock, TimeRange } from "react-vrw";
+import { Link } from "@/components/Link";
+
+import SearchIcon from "@mui/icons-material/Search";
 import { getColor } from "../lib/item";
 
 const App = ({ item, sx, meetup }) => {
@@ -42,6 +45,14 @@ const App = ({ item, sx, meetup }) => {
           }}
         >
           {item.get_jp_value("rocket")}
+          <SearchIcon
+            sx={{
+              fontSize: "0.8rem",
+              ml: 0.25,
+              mt: 0.5,
+              transform: "scale(-1, 1)",
+            }}
+          />
         </Link>
       ),
     },
@@ -58,6 +69,14 @@ const App = ({ item, sx, meetup }) => {
           }}
         >
           {item.get_jp_value("provider")}
+          <SearchIcon
+            sx={{
+              fontSize: "0.8rem",
+              ml: 0.25,
+              mt: 0.5,
+              transform: "scale(-1, 1)",
+            }}
+          />
         </Link>
       ),
     },
@@ -74,6 +93,14 @@ const App = ({ item, sx, meetup }) => {
           }}
         >
           {item.get_jp_value("site")}
+          <SearchIcon
+            sx={{
+              fontSize: "0.8rem",
+              ml: 0.25,
+              mt: 0.5,
+              transform: "scale(-1, 1)",
+            }}
+          />
         </Link>
       ),
     },
@@ -98,6 +125,14 @@ const App = ({ item, sx, meetup }) => {
             }}
           >
             {meetup.type.toUpperCase()}: {meetup.datetime_format()}
+            <SearchIcon
+              sx={{
+                fontSize: "0.8rem",
+                ml: 0.25,
+                mt: 0.5,
+                transform: "scale(-1, 1)",
+              }}
+            />
           </Link>
           <br />
         </>
@@ -113,6 +148,14 @@ const App = ({ item, sx, meetup }) => {
               .replace("datetime=", "")}&limit=1000`}
           >
             {item.datetime.split("-")[0]}年
+            <SearchIcon
+              sx={{
+                fontSize: "0.8rem",
+                ml: 0.25,
+                mt: 0.5,
+                transform: "scale(-1, 1)",
+              }}
+            />
           </Link>
           のミッション一覧
         </>

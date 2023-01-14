@@ -1,5 +1,5 @@
 import { Box, Typography, Grid } from "@mui/material";
-import { Link } from "react-vrw";
+import { Link } from "@/components/Link";
 
 import IconButton from "@mui/material/IconButton";
 import HomeIcon from "@mui/icons-material/Home";

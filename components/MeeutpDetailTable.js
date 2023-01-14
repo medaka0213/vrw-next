@@ -1,6 +1,10 @@
 import DetailTable from "./DetailTable";
-import { Link, CountDownClock, TimeRange } from "react-vrw";
+import { CountDownClock, TimeRange } from "react-vrw";
+import { Link } from "@/components/Link";
+
 import { Typography, Box } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+
 import { getColor } from "../lib/item";
 
 const App = ({ item, event, sx }) => {
@@ -25,6 +29,14 @@ const App = ({ item, event, sx }) => {
           }}
         >
           {event.missionTitle_JP_Short()}
+          <SearchIcon
+            sx={{
+              fontSize: "0.8rem",
+              ml: 0.25,
+              mt: 0.5,
+              transform: "scale(-1, 1)",
+            }}
+          />
         </Link>
       ),
     },
@@ -65,6 +77,14 @@ const App = ({ item, event, sx }) => {
               .replace("datetime=", "")}&limit=1000`}
           >
             {item.datetime.split("-")[0]}年
+            <SearchIcon
+              sx={{
+                fontSize: "0.8rem",
+                ml: 0.25,
+                mt: 0.5,
+                transform: "scale(-1, 1)",
+              }}
+            />
           </Link>
           の集会一覧
         </>

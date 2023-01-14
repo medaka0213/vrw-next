@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Grid, Box, LinearProgress, Typography } from "@mui/material";
 
-import { ItemReducer, Link, Youtube, DialogWrapper, Launch } from "react-vrw";
+import { ItemReducer, Youtube, DialogWrapper, Launch } from "react-vrw";
+import { Link } from "@/components/Link";
 
 import MissionDetailTable from "@/components/MissionDetailTable";
 import MainBox from "@/components/common/MainBox";

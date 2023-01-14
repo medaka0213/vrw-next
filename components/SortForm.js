@@ -36,6 +36,7 @@ const App = ({
       childrenList={[
         [
           <FormSelect
+            key="sort"
             formik={formik}
             name="sort"
             title="並び替え"
@@ -47,6 +48,7 @@ const App = ({
             onChange={formik.handleSubmit}
           />,
           <FormSelect
+            key="order"
             formik={formik}
             name="order"
             title="順序"

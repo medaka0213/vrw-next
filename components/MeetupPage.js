@@ -21,6 +21,36 @@ const App = ({ type }) => {
     : null;
   poster_jp = poster_jp.length ? poster_jp[0].src() : null;
 
+  const ImageDialog = () => (
+    <DialogWrapper>
+      <img
+        src={
+          poster_jp ||
+          Item.image_url ||
+          Item.rocket_image_url ||
+          "https://img.virtualrocketwatching.net/image/image_3636fb8c-5931-4993-82c9-1745ce031d0e.jpeg"
+        }
+        alt={"mission thumbnail"}
+        width={"100%"}
+        height={"auto"}
+      />
+      {Item.image_url ? (
+        <Typography variant="body2" sx={{ textAlign: "center" }}>
+          Image Credit: {Item.image_credit}
+        </Typography>
+      ) : (
+        Item.rocket_image_url && (
+          <Typography variant="body2" sx={{ textAlign: "center" }}>
+            Image Credit: via{" "}
+            <Link href={"http://nextspaceflight.com"} external>
+              nextspaceflight.com
+            </Link>
+          </Typography>
+        )
+      )}
+    </DialogWrapper>
+  );
+
   return (
     <>
       <MainBox
@@ -29,28 +59,22 @@ const App = ({ type }) => {
         }}
       >
         <Grid container>
-          <Grid xs={12} md={6}>
-            <DialogWrapper>
-              <img
-                src={poster_jp || Item.image_url || Item.rocket_image_url}
-                alt={"mission thumbnail"}
-                width={"100%"}
-                height={"auto"}
-              />
-            </DialogWrapper>
+          <Grid
+            xs={6}
+            display={{
+              xs: "none",
+              lg: "block",
+            }}
+          >
+            <ImageDialog />
           </Grid>
           <Grid
             xs={12}
-            md={6}
+            lg={6}
             sx={{
               p: 2,
             }}
           >
-            {!poster_jp && Item.image_url && (
-              <Typography variant="caption">
-                Image Credit: {Item.image_credit}
-              </Typography>
-            )}
             <Typography
               variant="h5"
               sx={{
@@ -60,21 +84,18 @@ const App = ({ type }) => {
                 pl: 1,
               }}
             >
-              {Item.get_jp_value("title")}
+              {Item.type.toUpperCase()}: {Item.get_jp_value("title")}
             </Typography>
             <MeeutpDetailTable item={Item} event={event} />
-            <Typography
-              sx={{
-                fontWeight: "bold",
-                mt: 3,
-                mb: 3,
-                pl: 1,
-              }}
-            >
-              <Link href={event.itemDetailPath("pub")}>
-                ミッションの詳細情報はこちら
-              </Link>
-            </Typography>
+          </Grid>
+          <Grid
+            xs={12}
+            display={{
+              xs: "block",
+              lg: "none",
+            }}
+          >
+            <ImageDialog />
           </Grid>
         </Grid>
       </MainBox>

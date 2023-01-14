@@ -16,7 +16,7 @@ function List({ items = [], sx = {} }) {
           {items.map((item) => (
             <TableRow hover key={item.key}>
               <TableCell>{item.key}</TableCell>
-              <TableCell>
+              <TableCell {...item}>
                 <strong>{item.value}</strong>
               </TableCell>
             </TableRow>

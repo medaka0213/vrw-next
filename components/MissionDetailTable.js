@@ -1,10 +1,17 @@
 import DetailTable from "./DetailTable";
-import { Link, CountDownClock } from "react-vrw";
-import { Typography } from "@mui/material";
+import { Link, CountDownClock, TimeRange } from "react-vrw";
+import { getColor } from "../lib/item";
 
-const App = ({ item, sx }) => {
+const App = ({ item, sx, meetup }) => {
   console.log("item", item);
   const items_launch = [
+    {
+      key: "状態",
+      value: getColor(item).jp + " (" + getColor(item).en.toUpperCase() + ")",
+      sx: {
+        color: getColor(item).color,
+      },
+    },
     {
       key: "カウントダウン",
       value:
@@ -24,15 +31,51 @@ const App = ({ item, sx }) => {
     },
     {
       key: "ロケット",
-      value: item.get_jp_value("rocket"),
+      value: (
+        <Link
+          href={{
+            pathname: "/mission",
+            query: {
+              rocket: item.rocket,
+              limit: 1000,
+            },
+          }}
+        >
+          {item.get_jp_value("rocket")}
+        </Link>
+      ),
     },
     {
       key: "打ち上げ事業者",
-      value: item.get_jp_value("provider"),
+      value: (
+        <Link
+          href={{
+            pathname: "/mission",
+            query: {
+              provider: item.provider,
+              limit: 1000,
+            },
+          }}
+        >
+          {item.get_jp_value("provider")}
+        </Link>
+      ),
     },
     {
       key: "発射場",
-      value: item.get_jp_value("site"),
+      value: (
+        <Link
+          href={{
+            pathname: "/mission",
+            query: {
+              site: item.site,
+              limit: 1000,
+            },
+          }}
+        >
+          {item.get_jp_value("site")}
+        </Link>
+      ),
     },
     {
       key: "関連リンク",
@@ -42,8 +85,48 @@ const App = ({ item, sx }) => {
         </Link>
       ),
     },
+    {
+      key: "集会情報",
+      value: meetup.map((meetup) => (
+        <>
+          <Link
+            href={{
+              pathname: "/meetup/detail",
+              query: {
+                pk: meetup?.pk,
+              },
+            }}
+          >
+            {meetup.type.toUpperCase()}: {meetup.datetime_format()}
+          </Link>
+          <br />
+        </>
+      )),
+    },
+    {
+      key: "もっと調べる",
+      value: (
+        <>
+          <Link
+            href={`/mission?datetime=${TimeRange.fromMode(item.datetime, "YEAR")
+              .toString()
+              .replace("datetime=", "")}&limit=1000`}
+          >
+            {item.datetime.split("-")[0]}年
+          </Link>
+          のミッション一覧
+        </>
+      ),
+    },
   ];
   const items_event = [
+    {
+      key: "状態",
+      value: getColor(item).jp + " (" + getColor(item).en.toUpperCase() + ")",
+      sx: {
+        color: getColor(item).color,
+      },
+    },
     {
       key: "カウントダウン",
       value:
@@ -63,6 +146,39 @@ const App = ({ item, sx }) => {
         <Link href={item.nextSpaceFlightLink()} external>
           nextspaceflight.com
         </Link>
+      ),
+    },
+    {
+      key: "集会情報",
+      value: meetup.map((meetup) => (
+        <>
+          <Link
+            href={{
+              pathname: "/meetup/detail",
+              query: {
+                pk: meetup?.pk,
+              },
+            }}
+          >
+            {meetup.type.toUpperCase()}: {meetup.datetime_format()}
+          </Link>
+          <br />
+        </>
+      )),
+    },
+    {
+      key: "もっと調べる",
+      value: (
+        <>
+          <Link
+            href={`/mission?datetime=${TimeRange.fromMode(item.datetime, "YEAR")
+              .toString()
+              .replace("datetime=", "")}&limit=1000`}
+          >
+            {item.datetime.split("-")[0]}年
+          </Link>
+          のミッション一覧
+        </>
       ),
     },
   ];

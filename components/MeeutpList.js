@@ -41,7 +41,7 @@ export const MeeutpListItem = ({ item }) => {
         </MissionBadge>
       </ListItemAvatar>
       <ListItemText
-        primary={item.title_JP}
+        primary={item.get_jp_value("title")}
         secondary={
           <React.Fragment>
             <Typography

@@ -24,6 +24,7 @@ const App = () => {
     itemReducer.isReceived &&
     itemReducer.isReferenceReceived &&
     itemReducer.isRelationReceived;
+  let { Item } = itemReducer;
 
   const load = () => {
     if (pk) {

@@ -79,6 +79,8 @@ const App = () => {
   };
 
   useEffect(() => {
+    if (!router.isReady) return;
+
     let keys = getKeys(config, type);
     const params = getParams(type, query, keys);
     const queries = params.map((p) => {

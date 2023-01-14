@@ -187,7 +187,6 @@ const App = () => {
   const [prevPath, setPrevPath] = useState(router.pathname);
 
   useEffect(() => {
-    console.log("type", router.pathname);
     if (router.pathname === "/mission/detail" && prevPath === "/mission") {
       setIndex(1);
     } else if (router.pathname === "/meetup/detail" && prevPath === "/meetup") {

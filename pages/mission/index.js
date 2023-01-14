@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import Head from "next/head";
 import Router from "next/router";
 
-import { Box } from "@mui/material";
+import { LinearProgress } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -59,7 +59,7 @@ const getKeys = (config, type) => {
 
 const App = () => {
   const router = useRouter();
-  const { query = {} } = router;
+  const { query } = router;
   const type = "mission";
 
   const itemReducer = useSelector((s) => s.itemReducer[type]);
@@ -80,6 +80,8 @@ const App = () => {
   };
 
   useEffect(() => {
+    if (!router.isReady) return;
+
     let keys = getKeys(config, type);
     const params = getParams(type, query, keys);
     const queries = params.map((p) => {
@@ -112,7 +114,6 @@ const App = () => {
     loadItems(params);
   }, [dispatch, query]);
 
-  console.log("queries", queries);
   return (
     <>
       <Head>
@@ -140,9 +141,13 @@ const App = () => {
           queries={queries}
         />
       </MainBox>
-      <MainBox>
-        <MissionList items={Items || []} />
-      </MainBox>
+      {isReceived ? (
+        <MainBox>
+          <MissionList items={Items || []} />
+        </MainBox>
+      ) : (
+        <LinearProgress />
+      )}
     </>
   );
 };

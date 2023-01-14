@@ -4,13 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Grid, Box, LinearProgress, Typography } from "@mui/material";
 
-import {
-  ItemReducer,
-  Link,
-  Youtube,
-  DialogWrapper,
-  CountDownClock,
-} from "react-vrw";
+import { ItemReducer, Link, Youtube, DialogWrapper, Launch } from "react-vrw";
 
 import MissionDetailTable from "@/components/MissionDetailTable";
 import MainBox from "@/components/common/MainBox";
@@ -20,9 +14,10 @@ import SlideShow from "@/components/Slide";
 const App = ({ type }) => {
   const itemReducer =
     useSelector((s) => s.itemReducer[type]) || new ItemReducer();
-  let { Item = {} } = itemReducer;
+  let { Item = new Launch() } = itemReducer;
   const countdown = itemReducer.getRefItem("countdown");
   const slide = itemReducer.getRelItem("slide");
+  const meetup = itemReducer.getRelList("meetup");
 
   const ImageDialog = () => (
     <DialogWrapper>
@@ -84,7 +79,7 @@ const App = ({ type }) => {
             >
               {Item.get_jp_value("name")}
             </Typography>
-            <MissionDetailTable item={Item} />
+            <MissionDetailTable item={Item} meetup={meetup} />
           </Grid>
         </Grid>
       </MainBox>
@@ -115,11 +110,9 @@ const App = ({ type }) => {
                 </Typography>
               </>
             ) : (
-              Item.youtubeShortId() && (
-                <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                  動画は見つかりませんでした
-                </Typography>
-              )
+              <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+                動画は見つかりませんでした
+              </Typography>
             )}
           </Grid>
           <Grid
@@ -140,14 +133,12 @@ const App = ({ type }) => {
                 </Typography>
               </>
             ) : (
-              Item.youtubeId() && (
-                <Typography
-                  variant="subtitle2"
-                  sx={{ textAlign: "center", pb: 1 }}
-                >
-                  切り抜き動画は見つかりませんでした
-                </Typography>
-              )
+              <Typography
+                variant="subtitle2"
+                sx={{ textAlign: "center", pb: 1 }}
+              >
+                切り抜き動画は見つかりませんでした
+              </Typography>
             )}
           </Grid>
         </Grid>

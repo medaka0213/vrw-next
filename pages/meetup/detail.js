@@ -42,7 +42,7 @@ const App = () => {
 
   return (
     <>
-      <OgpHead tite="集会の詳細情報" />
+      <OgpHead title="集会の詳細情報" />
       {!isReceived && <LinearProgress />}
       {isReceived && <MeetupPage type={type} />}
     </>

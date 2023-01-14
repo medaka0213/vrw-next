@@ -120,7 +120,7 @@ const App = () => {
       <Head>
         <title>{isReceived ? `ミッションを検索する` : "loading..."}</title>
       </Head>
-      <OgpHead tite="ミッションを検索する" />
+      <OgpHead title="ミッションを検索する" />
       <MainBox
         sx={{
           border: "1px solid #eaeaea",

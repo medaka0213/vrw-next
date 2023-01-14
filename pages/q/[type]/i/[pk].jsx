@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-
+import OgpHead from "@/components/OgpHead";
 
 const Page = () => {
   const router = useRouter();
@@ -10,13 +10,18 @@ const Page = () => {
     if (!router.isReady) return;
     if (!type || !pk) return;
 
-    if (type ==="launch" || type === "event") {
-      type = "mission"
+    if (type === "launch" || type === "event") {
+      type = "mission";
     }
-    router.push(`/${type}/detail/?pk=${pk}`)
+    router.push(`/${type}/detail/?pk=${pk}`);
   }, [router]);
 
-  return <div>Redirecting...</div>;
-}
+  return (
+    <>
+      <OgpHead />
+      <div>Redirecting...</div>
+    </>
+  );
+};
 
 export default Page;

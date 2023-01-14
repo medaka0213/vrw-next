@@ -42,7 +42,9 @@ const App = () => {
 
   return (
     <>
-      <OgpHead title="ミッションの詳細情報" />
+      <OgpHead title="ミッションの詳細情報">
+        <title>{isReceived ? Item.get_jp_value("name") : "loading..."}</title>
+      </OgpHead>
       {!isReceived && <LinearProgress />}
       {isReceived && <MissionPage type={type} />}
     </>

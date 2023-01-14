@@ -22,14 +22,6 @@ function App(props) {
 
   return (
     <CacheProvider value={emotionCache}>
-      <Head>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
-        <link
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-          crossOrigin="anonymous"
-        ></link>
-      </Head>
-      <OgpHead />
       <ThemeProvider theme={theme} >
         <CssBaseline />
         <ResponsiveLayout>

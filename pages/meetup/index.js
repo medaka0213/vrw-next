@@ -119,10 +119,9 @@ const App = () => {
 
   return (
     <>
-      <Head>
+      <OgpHead title="集会を検索する">
         <title>{isReceived ? `集会を検索する` : "loading..."}</title>
-      </Head>
-      <OgpHead title="集会を検索する" />
+      </OgpHead>
       <MainBox>
         <SearchDetailForm
           onSubmit={(params) => {

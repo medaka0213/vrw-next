@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 
 import { SEARCH_ITEMS, sort_array } from "react-vrw";
 
-import MissionBadge from "./MissionBadge";
+import MissionBadge from "@/components/MissionBadge";
 import SortForm from "./SortForm";
 
 export const MissionListItem = ({ item }) => {

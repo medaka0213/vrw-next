@@ -15,7 +15,7 @@ import Typography from "@mui/material/Typography";
 import { TabsParent, GET_ITEMS, SEARCH_ITEMS, DEFAULT_QUERY } from "react-vrw";
 
 import { getEvents, fetGetItems } from "../lib/client";
-import MissionIcon from "./MissionIcon";
+import MissionIcon from "@/components/MissionIcon";
 
 const getParams = (type) => {
   return DEFAULT_QUERY[type]

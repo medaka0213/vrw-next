@@ -25,8 +25,8 @@ const App = ({ type }) => {
       <img
         src={Item.image_url || Item.rocket_image_url}
         alt={"mission thumbnail"}
-        width={"100%"}
-        height={"auto"}
+        width="100%"
+        style={{ maxWidth: "100vw", maxHeight: "90vh" }}
       />
       {Item.image_url ? (
         <Typography variant="body2" sx={{ textAlign: "center" }}>

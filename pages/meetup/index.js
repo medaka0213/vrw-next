@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import Head from "next/head";
 import Router from "next/router";
-import { Typography } from "@mui/material";
+import { LinearProgress, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
 import MeeutpList from "@/components/MeeutpList";
@@ -137,9 +137,13 @@ const App = () => {
           注意: 日本語未対応です。英名・国際標準時で検索してください。
         </Typography>
       </MainBox>
-      <MainBox>
-        <MeeutpList items={Items || []} />
-      </MainBox>
+      {isReceived ? (
+        <MainBox>
+          <MeeutpList items={Items || []} />
+        </MainBox>
+      ) : (
+        <LinearProgress />
+      )}
     </>
   );
 };

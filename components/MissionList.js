@@ -105,7 +105,7 @@ const App = ({ items: defaultItems }) => {
           <Grid
             item
             xs={12}
-            lg={6}
+            md={6}
             xl={4}
             key={`mission-list-${i}`}
             sx={{

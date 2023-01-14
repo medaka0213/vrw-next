@@ -16,9 +16,10 @@ import EventIcon from "@mui/icons-material/Event";
 import InfoIcon from "@mui/icons-material/Info";
 import { Box, Paper, Typography, Button } from "@mui/material";
 
-import { Layout, Link } from "react-vrw";
+import { Layout } from "react-vrw";
 
 import MainBox from "./common/MainBox";
+import Link from "./Link";
 
 const drawer = (
   <div>

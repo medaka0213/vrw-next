@@ -126,9 +126,7 @@ const ItemList = ({ mode, ...props }) => {
 const ItemListByType = ({ type, ...props }) => {
   const router = useRouter();
 
-  const itemReducer = useSelector((s) => s.itemReducer[type]);
-  const { isReceived, Items = [] } = itemReducer || Object.create(null);
-
+  const { Items = [] } = useSelector((s) => s.itemReducer[type]);
   const [loading, setLoading] = useState(false);
   const [fetchedItems, setFetchedItems] = useState([]);
 
@@ -141,10 +139,12 @@ const ItemListByType = ({ type, ...props }) => {
   };
 
   useEffect(() => {
-    if (!Items?.length) {
+    if (!Items || !Items.length) {
       load();
+    } else {
+      setFetchedItems(Items.slice().reverse());
     }
-  }, [type]);
+  }, [type, Items]);
 
   return (
     <>
@@ -160,11 +160,7 @@ const ItemListByType = ({ type, ...props }) => {
           ? "前回の検索結果を表示しています"
           : "最近の項目を表示しています"}
       </Typography>
-      <SmallItemList
-        items={Items?.length ? Items.slice().reverse() : fetchedItems}
-        loading={loading}
-        {...props}
-      />
+      <SmallItemList items={fetchedItems} loading={loading} {...props} />
       <Button
         variant="outlined"
         onClick={() => router.push(`/${type}`)}

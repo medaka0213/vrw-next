@@ -1,7 +1,6 @@
 import * as React from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
+import Router from "next/router";
+
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
@@ -9,14 +8,11 @@ import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
-import { useRouter } from "next/router";
-
 import { SEARCH_ITEMS, sort_array } from "react-vrw";
 import MissionBadge from "@/components/MissionBadge";
 import SortForm from "./SortForm";
 
 export const MeeutpListItem = ({ item }) => {
-  const router = useRouter();
   let img_url = item.image_url || item.rocket_image_url;
   if (
     !img_url ||
@@ -30,7 +26,7 @@ export const MeeutpListItem = ({ item }) => {
   return (
     <ListItemButton
       alignItems="flex-start"
-      onClick={() => router.push(item.itemDetailPath("pub"))}
+      onClick={() => Router.push(item.itemDetailPath("pub"))}
     >
       <ListItemAvatar>
         <MissionBadge item={item}>

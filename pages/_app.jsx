@@ -1,4 +1,3 @@
-import Head from "next/head";
 import React, { useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,8 +10,8 @@ import theme from "../theme";
 import createEmotionCache from "../createEmotionCache";
 import "../styles/globals.css";
 
-import {ResponsiveLayout} from "../components/Layout";
-import OgpHead from "../components/OgpHead";
+import { ResponsiveLayout } from "../components/Layout";
+import { Analytics } from "@vercel/analytics/react";
 
 const clientSideEmotionCache = createEmotionCache();
 const wrapper = createWrapper(makeStore, { debug: true });
@@ -22,9 +21,10 @@ function App(props) {
 
   return (
     <CacheProvider value={emotionCache}>
-      <ThemeProvider theme={theme} >
+      <ThemeProvider theme={theme}>
         <CssBaseline />
         <ResponsiveLayout>
+          <Analytics />
           <Component {...pageProps} />
         </ResponsiveLayout>
       </ThemeProvider>

@@ -108,7 +108,9 @@ const App = ({ type }) => {
                   start={Item.watch_URL_liftoff_at}
                 />
                 <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                  中継 / アーカイブ動画
+                  <Link href={Item.watch_URL || Item.watch_URL_option} external>
+                    中継 / アーカイブ動画
+                  </Link>
                 </Typography>
               </>
             ) : (
@@ -127,11 +129,14 @@ const App = ({ type }) => {
             {Item.youtubeShortId() ? (
               <>
                 <Youtube videoId={Item.youtubeShortId()} />
+
                 <Typography
                   variant="subtitle2"
                   sx={{ textAlign: "center", pb: 1 }}
                 >
-                  切り抜き動画
+                  <Link href={Item.watch_URL_short} external>
+                    切り抜き動画
+                  </Link>
                 </Typography>
               </>
             ) : (

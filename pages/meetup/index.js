@@ -21,6 +21,12 @@ import {
   DEFAULT_QUERY,
 } from "react-vrw";
 
+const isDatetime = (key, type) => {
+  const keyList = SEARCH_ITEMS[type] || [];
+  const target = keyList.filter((k) => k.value === key);
+  return target.length ? target[0].type === "datetime" : false;
+};
+
 const getParams = (type, query, keys) => {
   if (Object.keys(query).length === 0) {
     return DEFAULT_QUERY[type]
@@ -89,19 +95,8 @@ const App = () => {
     const params = getParams(type, query, keys);
     const queries = params.map((p) => {
       let pld = {};
-      if (p.key === "datetime" && p.value.includes("...")) {
-        pld = TimeRange.fromMode(
-          p.value.split("...")[0],
-          "BETWEEN",
-          p.value.split("...")[1]
-        );
-        pld = {
-          key: "datetime",
-          value0: pld.start,
-          value1: pld.end,
-          mode: pld.mode,
-          type: "datetime",
-        };
+      if (isDatetime(p.key, type)) {
+        pld = TimeRange.fromString(p.value).toQueryItem(p.key);
       } else {
         pld = ParamToQueryItem(`${p.key}=${p.value}`);
       }

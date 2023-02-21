@@ -16,6 +16,7 @@ import EventIcon from "@mui/icons-material/Event";
 import InfoIcon from "@mui/icons-material/Info";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import NoteAltOutlinedIcon from "@mui/icons-material/NoteAltOutlined";
 
 import { Layout } from "react-vrw";
 
@@ -99,6 +100,23 @@ const drawer = (
           <ListItemText primary={"Discord"} />
         </ListItemButton>
       </ListItem>
+      <Divider />
+      <ListItem key={"discord"} disablePadding>
+        <ListItemButton onClick={() => Router.push("/form/perticipant")}>
+          <ListItemIcon>
+            <NoteAltOutlinedIcon />
+          </ListItemIcon>
+          <ListItemText primary={"アンケート"} />
+        </ListItemButton>
+      </ListItem>
+      <ListItem key={"discord"} disablePadding>
+        <ListItemButton onClick={() => Router.push("/form/staff")}>
+          <ListItemIcon>
+            <NoteAltOutlinedIcon />
+          </ListItemIcon>
+          <ListItemText primary={"スタッフ参加希望"} />
+        </ListItemButton>
+      </ListItem>
     </List>
   </div>
 );
@@ -146,6 +164,14 @@ export function Footer() {
             <Link href="https://discord.com/invite/SBeSSY4xC9" external>
               Discord
             </Link>
+          </Typography>
+        </Box>
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Typography variant="caption" align="center" mx={1}>
+            <Link href="/form/perticipant">アンケート</Link>
+          </Typography>
+          <Typography variant="caption" align="center" mx={1}>
+            <Link href="/form/staff">スタッフ参加希望</Link>
           </Typography>
         </Box>
       </Box>

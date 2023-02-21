@@ -61,13 +61,21 @@ const App = ({ sx = {} }) => {
         </Link>
       </Typography>
       <Typography variant="p" sx={{ mr: 3 }}>
-        <Link href="https://t.co/nL12021X0s" sx={iconWrapStyle} external>
+        <Link
+          href="https://calendar.google.com/calendar/u/0/embed?src=inoopdemi6k2uss2lktrfl0iu8@group.calendar.google.com"
+          sx={iconWrapStyle}
+          external
+        >
           <EventIcon sx={{ mr: 0.5 }} />
           Googleカレンダー
         </Link>
       </Typography>
       <Typography variant="p" sx={{ mr: 3 }}>
-        <Link href="https://t.co/cjfnxjZrZG" sx={iconWrapStyle} external>
+        <Link
+          href="https://discord.com/invite/SBeSSY4xC9"
+          sx={iconWrapStyle}
+          external
+        >
           <ForumIcon sx={{ mr: 0.5 }} />
           Discord
         </Link>
@@ -80,13 +88,13 @@ const App = ({ sx = {} }) => {
         までお問い合わせください。
       </Typography>
       <Typography variant="p" sx={{ mr: 3 }}>
-        <Link href="/meetup" sx={iconWrapStyle} external>
+        <Link href="/form/perticipant" sx={iconWrapStyle}>
           <NoteAltOutlinedIcon sx={{ mr: 0.5 }} />
           参加者アンケート
         </Link>
       </Typography>
       <Typography variant="p" sx={{ mr: 3 }}>
-        <Link href="https://t.co/nL12021X0s" sx={iconWrapStyle} external>
+        <Link href="/form/staff" sx={iconWrapStyle}>
           <NoteAltOutlinedIcon sx={{ mr: 0.5 }} />
           スタッフ参加希望フォーム
         </Link>

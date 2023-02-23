@@ -1,6 +1,5 @@
 import React from "react";
 import dynamic from "next/dynamic";
-import Router from "next/router";
 
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
@@ -17,6 +16,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import NoteAltOutlinedIcon from "@mui/icons-material/NoteAltOutlined";
+import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import Link from "next/link";
 
 import { Layout } from "react-vrw";
@@ -81,6 +81,7 @@ const drawer = () => {
           target="_blank"
         />
         <Divider />
+        <ListItemLink text="データ配布" href="/images" Icon={SaveAltIcon} />
         <ListItemLink
           text="参加者アンケート"
           href="/form/perticipant"
@@ -141,7 +142,11 @@ export function Footer() {
             </VRWLink>
           </Typography>
         </Box>
+
         <Box display="flex" justifyContent="center" alignItems="center">
+          <Typography variant="caption" align="center" mx={1}>
+            <VRWLink href="/images">データ配布</VRWLink>
+          </Typography>
           <Typography variant="caption" align="center" mx={1}>
             <VRWLink href="/form/perticipant">アンケート</VRWLink>
           </Typography>

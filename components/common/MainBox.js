@@ -1,9 +1,9 @@
 import React from "react";
 import Paper from "@mui/material/Paper";
 
-const App = ({ sx = {}, children, ...props }) => {
+const App = ({ sx = {}, children, Component = Paper, ...props }) => {
   return (
-    <Paper
+    <Component
       sx={{
         mb: 2,
         p: {
@@ -14,7 +14,7 @@ const App = ({ sx = {}, children, ...props }) => {
       }}
     >
       {children}
-    </Paper>
+    </Component>
   );
 };
 

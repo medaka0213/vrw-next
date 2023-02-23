@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-
+import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 
 import LinerProgress from "@mui/material/LinearProgress";
@@ -12,7 +12,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-import { TabsParent, GET_ITEMS, SEARCH_ITEMS, DEFAULT_QUERY } from "react-vrw";
+import { TabsParent, DEFAULT_QUERY } from "react-vrw";
 
 import { getEvents, fetGetItems } from "../lib/client";
 import MissionIcon from "@/components/MissionIcon";
@@ -29,8 +29,6 @@ const getParams = (type) => {
 };
 
 const SmallItemList = ({ items, loading, ...props }) => {
-  const router = useRouter();
-
   return (
     <List {...props}>
       {loading && <LinerProgress />}
@@ -38,52 +36,56 @@ const SmallItemList = ({ items, loading, ...props }) => {
         return (
           <>
             <Divider key={item.pk + "divider"} />
-            <ListItemButton
-              key={item.pk}
-              onClick={() => router.push(item.itemDetailPath("pub"))}
+            <Link
+              href={item.itemDetailPath("pub")}
+              passHref
+              key={item.pk + "link"}
+              style={{ textDecoration: "none", color: "#000000de" }}
             >
-              <ListItemAvatar sx={{ minWidth: "36px" }}>
-                <MissionIcon item={item} />
-              </ListItemAvatar>
-              <ListItemText
-                style={{
-                  width: "100%",
-                  whiteSpace: "nowrap",
-                  display: "block",
-                }}
-              >
-                <Typography
-                  key="title"
-                  variant="caption"
-                  component="div"
-                  color={"text.primary"}
-                  sx={{
-                    textOverflow: "ellipsis",
-                    overflow: "hidden",
+              <ListItemButton>
+                <ListItemAvatar sx={{ minWidth: "36px" }}>
+                  <MissionIcon item={item} />
+                </ListItemAvatar>
+                <ListItemText
+                  style={{
+                    width: "100%",
+                    whiteSpace: "nowrap",
+                    display: "block",
                   }}
                 >
-                  {item.itemType() === "meetup"
-                    ? item.type.toUpperCase() +
-                      ": " +
-                      item.get_jp_value("title")
-                    : item.missionTitle_JP_Short()}
-                </Typography>
-                <Typography
-                  key="datetime"
-                  variant="caption"
-                  component="div"
-                  color={"text.secondary"}
-                  sx={{
-                    textOverflow: "ellipsis",
-                    overflow: "hidden",
-                  }}
-                >
-                  {item.itemType() === "meetup"
-                    ? item.datetime_format()
-                    : item.datetime_format_JP}
-                </Typography>
-              </ListItemText>
-            </ListItemButton>
+                  <Typography
+                    key="title"
+                    variant="caption"
+                    component="div"
+                    color={"text.primary"}
+                    sx={{
+                      textOverflow: "ellipsis",
+                      overflow: "hidden",
+                    }}
+                  >
+                    {item.itemType() === "meetup"
+                      ? item.type.toUpperCase() +
+                        ": " +
+                        item.get_jp_value("title")
+                      : item.missionTitle_JP_Short()}
+                  </Typography>
+                  <Typography
+                    key="datetime"
+                    variant="caption"
+                    component="div"
+                    color={"text.secondary"}
+                    sx={{
+                      textOverflow: "ellipsis",
+                      overflow: "hidden",
+                    }}
+                  >
+                    {item.itemType() === "meetup"
+                      ? item.datetime_format()
+                      : item.datetime_format_JP}
+                  </Typography>
+                </ListItemText>
+              </ListItemButton>
+            </Link>
           </>
         );
       })}

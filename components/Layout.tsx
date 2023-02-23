@@ -17,109 +17,84 @@ import InfoIcon from "@mui/icons-material/Info";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import NoteAltOutlinedIcon from "@mui/icons-material/NoteAltOutlined";
+import Link from "next/link";
 
 import { Layout } from "react-vrw";
 
 import MainBox from "./common/MainBox";
-import Link from "./Link";
+import { Link as VRWLink } from "./Link";
 
-const drawer = (
-  <div>
-    <List>
-      <ListItem key={"home"} disablePadding>
-        <ListItemButton onClick={() => Router.push("/")}>
-          <ListItemIcon>
-            <HomeIcon />
-          </ListItemIcon>
-          <ListItemText primary={"HOME"} />
-        </ListItemButton>
-      </ListItem>
-      <ListItem key={"about"} disablePadding>
-        <ListItemButton onClick={() => Router.push("/about")}>
-          <ListItemIcon>
-            <InfoIcon />
-          </ListItemIcon>
-          <ListItemText primary={"ABOUT"} />
-        </ListItemButton>
-      </ListItem>
-    </List>
-    <Divider />
-    <List>
-      <ListItem key={"mission"} disablePadding>
-        <ListItemButton onClick={() => Router.push("/mission")}>
-          <ListItemIcon>
-            <SearchIcon />
-          </ListItemIcon>
-          <ListItemText primary={"ミッション"} />
-        </ListItemButton>
-      </ListItem>
-      <ListItem key={"mmetup"} disablePadding>
-        <ListItemButton onClick={() => Router.push("/meetup")}>
-          <ListItemIcon>
-            <SearchIcon />
-          </ListItemIcon>
-          <ListItemText primary={"集会"} />
-        </ListItemButton>
-      </ListItem>
-    </List>
-    <Divider />
-    <List>
-      <ListItem key={"twitter"} disablePadding>
-        <ListItemButton
-          component="a"
+const drawer = () => {
+  const ListItemLink = ({
+    href,
+    Icon = HomeIcon,
+    target = "_self",
+    text = "HOME",
+  }: {
+    href: string;
+    Icon?: any;
+    target?: string;
+    text?: string;
+  }) => {
+    return (
+      <Link
+        href={href}
+        passHref
+        target={target}
+        style={{ textDecoration: "none", color: "#000000de" }}
+      >
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>{Icon && <Icon />}</ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItemButton>
+        </ListItem>
+      </Link>
+    );
+  };
+
+  return (
+    <div>
+      <List>
+        <ListItemLink text="HOME" href="/" />
+        <ListItemLink text="ABOUT" href="/about" Icon={InfoIcon} />
+        <Divider />
+        <ListItemLink text="ミッション検索" href="/mission" Icon={SearchIcon} />
+        <ListItemLink text="集会検索" href="/meetup" Icon={SearchIcon} />
+        <Divider />
+        <ListItemLink
+          text="Twitter"
           href="https://twitter.com/vr_launch"
+          Icon={TwitterIcon}
           target="_blank"
-        >
-          <ListItemIcon>
-            <TwitterIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Twitter @vr_launch"} />
-        </ListItemButton>
-      </ListItem>
-      <ListItem key={"calendar"} disablePadding>
-        <ListItemButton
-          component="a"
+        />
+        <ListItemLink
+          text="カレンダー"
           href="https://calendar.google.com/calendar/u/0/embed?src=inoopdemi6k2uss2lktrfl0iu8@group.calendar.google.com"
+          Icon={EventIcon}
           target="_blank"
-        >
-          <ListItemIcon>
-            <EventIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Googleカレンダー"} />
-        </ListItemButton>
-      </ListItem>
-      <ListItem key={"discord"} disablePadding>
-        <ListItemButton
-          component="a"
-          href="https://discord.com/invite/SBeSSY4xC9"
+        />
+        <ListItemLink
+          text="Discord"
+          href="https://discord.com/invite/SBeSSY4xC9 "
+          Icon={ForumIcon}
           target="_blank"
-        >
-          <ListItemIcon>
-            <ForumIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Discord"} />
-        </ListItemButton>
-      </ListItem>
-      <Divider />
-      <ListItem key={"discord"} disablePadding>
-        <ListItemButton onClick={() => Router.push("/form/perticipant")}>
-          <ListItemIcon>
-            <NoteAltOutlinedIcon />
-          </ListItemIcon>
-          <ListItemText primary={"アンケート"} />
-        </ListItemButton>
-      </ListItem>
-      <ListItem key={"discord"} disablePadding>
-        <ListItemButton onClick={() => Router.push("/form/staff")}>
-          <ListItemIcon>
-            <NoteAltOutlinedIcon />
-          </ListItemIcon>
-          <ListItemText primary={"スタッフ参加希望"} />
-        </ListItemButton>
-      </ListItem>
-    </List>
-  </div>
-);
+        />
+        <Divider />
+        <ListItemLink
+          text="参加者アンケート"
+          href="/form/perticipant"
+          Icon={NoteAltOutlinedIcon}
+        />
+        <ListItemLink
+          text="スタッフ参加希望"
+          href="/form/staff"
+          Icon={NoteAltOutlinedIcon}
+        />
+      </List>
+    </div>
+  );
+};
 
 export function Footer() {
   //レイアウト内の一番下に表示されるフッター
@@ -134,44 +109,44 @@ export function Footer() {
       >
         <Box display="flex" justifyContent="center" alignItems="center">
           <Typography variant="caption" align="center" mx={1}>
-            <Link href="/">Home</Link>
+            <VRWLink href="/">Home</VRWLink>
           </Typography>
           <Typography variant="caption" align="center" mx={1}>
-            <Link href="/about">このサイトについて</Link>
+            <VRWLink href="/about">このサイトについて</VRWLink>
           </Typography>
           <Typography variant="caption" align="center" mx={1}>
-            <Link href="/mission">ミッション検索</Link>
+            <VRWLink href="/mission">打ち上げ検索</VRWLink>
           </Typography>
           <Typography variant="caption" align="center" mx={1}>
-            <Link href="/meetup">集会検索</Link>
+            <VRWLink href="/meetup">集会検索</VRWLink>
           </Typography>
         </Box>
         <Box display="flex" justifyContent="center" alignItems="center">
           <Typography variant="caption" align="center" mx={1}>
-            <Link href="https://twitter.com/vr_launch" external>
+            <VRWLink href="https://twitter.com/vr_launch" external>
               Twitter
-            </Link>
+            </VRWLink>
           </Typography>
           <Typography variant="caption" align="center" mx={1}>
-            <Link
+            <VRWLink
               href="https://calendar.google.com/calendar/u/0/embed?src=inoopdemi6k2uss2lktrfl0iu8@group.calendar.google.com"
               external
             >
               カレンダー
-            </Link>
+            </VRWLink>
           </Typography>
           <Typography variant="caption" align="center" mx={1}>
-            <Link href="https://discord.com/invite/SBeSSY4xC9" external>
+            <VRWLink href="https://discord.com/invite/SBeSSY4xC9" external>
               Discord
-            </Link>
+            </VRWLink>
           </Typography>
         </Box>
         <Box display="flex" justifyContent="center" alignItems="center">
           <Typography variant="caption" align="center" mx={1}>
-            <Link href="/form/perticipant">アンケート</Link>
+            <VRWLink href="/form/perticipant">アンケート</VRWLink>
           </Typography>
           <Typography variant="caption" align="center" mx={1}>
-            <Link href="/form/staff">スタッフ参加希望</Link>
+            <VRWLink href="/form/staff">スタッフ参加希望</VRWLink>
           </Typography>
         </Box>
       </Box>
@@ -220,7 +195,7 @@ export const ResponsiveLayout = (props: React.PropsWithChildren<{}>) => {
       <Layout
         footer={<Footer />}
         bgColor="#004F8A"
-        drawer={drawer}
+        drawer={drawer()}
         sidebar={<SideBar />}
       >
         <Box

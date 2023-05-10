@@ -1,4 +1,7 @@
-import { api, TimeRange, ParseItemList, sort_array } from "react-vrw";
+import {
+  api, TimeRange, ParseItemList, sort_array,
+  ParseItemByTypes, ParseItem
+} from "react-vrw";
 
 interface ParamItem {
   key: string;
@@ -11,6 +14,23 @@ export const fetGetItems = async (type: string, params: ParamItem[]) => {
   );
   return ParseItemList(res.payload?.Items || []).reverse();
 };
+
+export const fetGetSingleItem = async ({ type, pk }: { type: string, pk: string }) => {
+  let res = await api.get(`/q/${type}/i/${encodeURI(pk)}`);
+  return res.payload?.Item ? ParseItem(res.payload?.Item) : null;
+};
+
+export const fetGetRelation = async ({ type, pk }: { type: string, pk: string }) => {
+  let res = await api.get(`/q/${type}/i/${encodeURI(pk)}/rel`);
+  res = res.payload?.Items || [];
+  return ParseItemByTypes(res);
+}
+
+export const fetGetReference = async ({ type, pk }: { type: string, pk: string }) => {
+  let res = await api.get(`/q/${type}/i/${encodeURI(pk)}/ref`);
+  res = res.payload?.Items || [];
+  return ParseItemByTypes(res);
+}
 
 const getDatetimeRange = (dt: any = new Date()) => {
   const start = new Date();

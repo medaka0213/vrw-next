@@ -9,7 +9,6 @@ import { Link } from "@/components/Link";
 import { getColor } from "../lib/item";
 
 const App = ({ item, event, sx }) => {
-  console.log("item", item);
   const items = [
     {
       key: "状態",

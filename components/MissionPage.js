@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
-import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
-import { ItemReducer, Youtube, DialogWrapper, Launch } from "react-vrw";
+import { Youtube, DialogWrapper } from "react-vrw";
 
 import { Link } from "@/components/Link";
 import MissionDetailTable from "@/components/MissionDetailTable";
@@ -13,28 +11,22 @@ import MainBox from "@/components/common/MainBox";
 import Timeline from "@/components/Timeline";
 import SlideShow from "@/components/Slide";
 
-const App = ({ type }) => {
-  const itemReducer =
-    useSelector((s) => s.itemReducer[type]) || new ItemReducer();
-  let { Item = new Launch() } = itemReducer;
-  const countdown = itemReducer.getRefItem("countdown");
-  const slide = itemReducer.getRelItem("slide");
-  const meetup = itemReducer.getRelList("meetup");
-
+const App = ({ data }) => {
+  let {item, slide, meetup, countdown} = data;
   const ImageDialog = () => (
     <DialogWrapper>
       <img
-        src={Item.image_url || Item.rocket_image_url}
+        src={item.image_url || item.rocket_image_url}
         alt={"mission thumbnail"}
         width="100%"
         style={{ maxWidth: "100vw", maxHeight: "90vh" }}
       />
-      {Item.image_url ? (
+      {item.image_url ? (
         <Typography variant="body2" sx={{ textAlign: "center" }}>
-          Image Credit: {Item.image_credit}
+          Image Credit: {item.image_credit}
         </Typography>
       ) : (
-        Item.rocket_image_url && (
+        item.rocket_image_url && (
           <Typography variant="body2" sx={{ textAlign: "center" }}>
             Image Credit: via{" "}
             <Link href={"http://nextspaceflight.com"} external>
@@ -79,9 +71,9 @@ const App = ({ type }) => {
                 pl: 1,
               }}
             >
-              {Item.get_jp_value("name")}
+              {item.get_jp_value("name")}
             </Typography>
-            <MissionDetailTable item={Item} meetup={meetup} />
+            <MissionDetailTable item={item} meetup={meetup} />
           </Grid>
         </Grid>
       </MainBox>
@@ -98,17 +90,17 @@ const App = ({ type }) => {
               borderRight: "1px solid #eee",
             }}
           >
-            {Item.youtubeId() ? (
+            {item.youtubeId() ? (
               <>
                 <Youtube
                   sx={{
                     borderRight: "1px solid #eaeaea",
                   }}
-                  videoId={Item.youtubeId()}
-                  start={Item.watch_URL_liftoff_at}
+                  videoId={item.youtubeId()}
+                  start={item.watch_URL_liftoff_at}
                 />
                 <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                  <Link href={Item.watch_URL || Item.watch_URL_option} external>
+                  <Link href={item.watch_URL || item.watch_URL_option} external>
                     中継 / アーカイブ動画
                   </Link>
                 </Typography>
@@ -126,15 +118,15 @@ const App = ({ type }) => {
               borderRight: "1px solid #eee",
             }}
           >
-            {Item.youtubeShortId() ? (
+            {item.youtubeShortId() ? (
               <>
-                <Youtube videoId={Item.youtubeShortId()} />
+                <Youtube videoId={item.youtubeShortId()} />
 
                 <Typography
                   variant="subtitle2"
                   sx={{ textAlign: "center", pb: 1 }}
                 >
-                  <Link href={Item.watch_URL_short} external>
+                  <Link href={item.watch_URL_short} external>
                     切り抜き動画
                   </Link>
                 </Typography>
@@ -170,7 +162,7 @@ const App = ({ type }) => {
               <Timeline
                 countdown={countdown}
                 mode="t_minus"
-                datetime={Item.datetime}
+                datetime={item.datetime}
               />
             </Grid>
             <Grid
@@ -183,7 +175,7 @@ const App = ({ type }) => {
               <Timeline
                 countdown={countdown}
                 mode="t_plus"
-                datetime={Item.datetime}
+                datetime={item.datetime}
               />
             </Grid>
           </Grid>

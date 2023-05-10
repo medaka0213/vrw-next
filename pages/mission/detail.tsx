@@ -36,7 +36,10 @@ const App = (_data: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   let data = new MissionDetail(_data);
   return (
     <>
-      <OgpHead title={data.item.get_jp_value("name")} />
+      <OgpHead
+        title={data.item.get_jp_value("name")}
+        thumbnailUrl={data.thumbnail()}
+      />
       <MissionPage data={data} />
     </>
   );

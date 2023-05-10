@@ -34,7 +34,10 @@ const App = (_data: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   let data = new MeetupDetail(_data);
   return (
     <>
-      <OgpHead title={data.item.get_jp_value("title")} />
+      <OgpHead
+        title={data.item.get_jp_value("title")}
+        thumbnailUrl={data.thumbnail()}
+      />
       <MeetupPage data={data} />
     </>
   );

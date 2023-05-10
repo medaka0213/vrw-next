@@ -10,22 +10,12 @@ import MeeutpDetailTable from "@/components/MeeutpDetailTable";
 import MainBox from "@/components/common/MainBox";
 
 const App = ({ data }) => {
-  let { item, mission, poster } = data;
-
-  let poster_jp = poster.length
-    ? poster.filter((img) => img.name.endsWith("JP"))
-    : null;
-  poster_jp = poster_jp.length ? poster_jp[0].src() : null;
+  let { item, mission } = data;
 
   const ImageDialog = () => (
     <DialogWrapper>
       <img
-        src={
-          poster_jp ||
-          item.image_url ||
-          item.rocket_image_url ||
-          "https://img.virtualrocketwatching.net/image/image_3636fb8c-5931-4993-82c9-1745ce031d0e.jpeg"
-        }
+        src={data.thumbnail()}
         alt={"mission thumbnail"}
         width="100%"
         style={{ maxWidth: "100vw", maxHeight: "90vh" }}

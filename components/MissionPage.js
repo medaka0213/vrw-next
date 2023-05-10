@@ -16,7 +16,7 @@ const App = ({ data }) => {
   const ImageDialog = () => (
     <DialogWrapper>
       <img
-        src={item.image_url || item.rocket_image_url}
+        src={data.thumbnail()}
         alt={"mission thumbnail"}
         width="100%"
         style={{ maxWidth: "100vw", maxHeight: "90vh" }}

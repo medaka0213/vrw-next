@@ -3415,10 +3415,10 @@ react-transition-group@^4.4.5:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react-vrw@^0.1.42:
-  version "0.1.42"
-  resolved "https://registry.yarnpkg.com/react-vrw/-/react-vrw-0.1.42.tgz#de7e5e37ac81e197e1b8ad162f956f06588262fd"
-  integrity sha512-0SLvEBaOSnnSUhqG5kvmW7j1xxcx94x4RNor0gvOr7cvrbcNAPQbkMMdDXOnURryzpZr0RGN6CjNa7mDV0plVQ==
+react-vrw@^0.1.48:
+  version "0.1.48"
+  resolved "https://registry.yarnpkg.com/react-vrw/-/react-vrw-0.1.48.tgz#e06add2c918a11b49c366173736dfbcb67cdeae8"
+  integrity sha512-V1e9AAFPhcGqYcBePi+Ur9i8QmEaYSeHYN3OOVw+LlyQKZGIFiCxBVfTQL2jZ/VCv6u5YcyUNON8L1Pb7j+frg==
   dependencies:
     "@emotion/react" "^11.10.5"
     "@emotion/styled" "^11.10.5"

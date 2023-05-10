@@ -22,14 +22,14 @@ export const fetGetSingleItem = async ({ type, pk }: { type: string, pk: string 
 
 export const fetGetRelation = async ({ type, pk }: { type: string, pk: string }) => {
   let res = await api.get(`/q/${type}/i/${encodeURI(pk)}/rel`);
-  res = res.payload?.Items || [];
-  return ParseItemByTypes(res);
+  let items: any[] = res.payload?.Items || [];
+  return ParseItemByTypes(items);
 }
 
 export const fetGetReference = async ({ type, pk }: { type: string, pk: string }) => {
   let res = await api.get(`/q/${type}/i/${encodeURI(pk)}/ref`);
-  res = res.payload?.Items || [];
-  return ParseItemByTypes(res);
+  let items: any[] = res.payload?.Items || [];
+  return ParseItemByTypes(items);
 }
 
 const getDatetimeRange = (dt: any = new Date()) => {

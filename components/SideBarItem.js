@@ -128,7 +128,7 @@ const ItemList = ({ mode, ...props }) => {
 const ItemListByType = ({ type, ...props }) => {
   const router = useRouter();
 
-  const { Items = [] } = useSelector((s) => s.itemReducer[type]);
+  const { Items = [] } = useSelector((s) => s.itemReducer[type]) || {}
   const [loading, setLoading] = useState(false);
   const [fetchedItems, setFetchedItems] = useState([]);
 
@@ -146,7 +146,7 @@ const ItemListByType = ({ type, ...props }) => {
     } else {
       setFetchedItems(Items.slice().reverse());
     }
-  }, [type, Items]);
+  }, [type]);
 
   return (
     <>

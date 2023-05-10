@@ -30,9 +30,22 @@ export class MissionDetail implements MissionDetailIF {
 }
 
 
-export interface MeetupDetail {
+interface MeetupDetailIF {
   item: Meetup,
   mission?: Launch | Event
   poster?: Image[]
 }
 
+export class MeetupDetail implements MeetupDetailIF {
+  item: Meetup
+  mission?: Launch | Event
+  poster?: Image[]
+
+  constructor({
+    item, mission, poster
+  }: MeetupDetailIF) {
+    this.item = new Meetup(item)
+    this.mission = mission ? ParseItem(mission) : undefined
+    this.poster = (poster || []).map((m) => new Image(m))
+  }
+}

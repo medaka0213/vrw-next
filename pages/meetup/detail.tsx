@@ -1,10 +1,11 @@
 import { InferGetServerSidePropsType } from "next";
 import React from "react";
 
-import MissionPage from "@/components/MissionPage";
-import OgpHead from "@/components/OgpHead";
-import { MissionDetail } from "@/lib/models";
+import MeetupPage from "@/components/MeetupPage";
+
+import { MeetupDetail } from "@/lib/models";
 import { fetGetSingleItem, fetGetRelation, fetGetReference } from "@/lib/client";
+import OgpHead from "@/components/OgpHead";
 
 export const getServerSideProps = async (param: any) => {
   const type = param.query.pk.split("_")[0];
@@ -15,29 +16,26 @@ export const getServerSideProps = async (param: any) => {
   }
   // 関連アイテム
   const relation = await fetGetRelation({ pk: param.query.pk, type });
-  const rocket = relation.rocket ? relation.rocket[0] : null;
-  const slide = relation.slide ? relation.slide[0] : null;
-  const meetup = relation.meetup || [];
+  const image = relation.image || [];
   // 参照アイテム
   const reference = await fetGetReference({ pk: param.query.pk, type });
-  const countdown = reference.countdown ? reference.countdown[0] : null;
+  const launch = reference.launch ? reference.launch[0] : null;
+  const event = reference.event ? reference.event[0] : null;
   return {
     props: {
       item: item.data(),
-      rocket: rocket ? rocket.data() : null,
-      slide: slide ? slide.data() : null,
-      meetup: meetup?.map((item: any) => item.data()) || [],
-      countdown: countdown ? countdown.data() : null
+      mission: launch ? launch.data() : event ? event.data() : null,
+      poster: image?.map((item: any) => item.data()) || []
     }
   };
 };
 
 const App = (_data: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  let data = new MissionDetail(_data);
+  let data = new MeetupDetail(_data);
   return (
     <>
-      <OgpHead title={data.item.get_jp_value("name")} />
-      <MissionPage data={data} />
+      <OgpHead title={data.item.get_jp_value("title")} />
+      <MeetupPage data={data} />
     </>
   );
 };

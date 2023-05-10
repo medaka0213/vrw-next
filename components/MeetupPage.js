@@ -1,25 +1,19 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
-import { ItemReducer, DialogWrapper, Meetup } from "react-vrw";
+import { DialogWrapper } from "react-vrw";
 import { Link } from "@/components/Link";
 
 import MeeutpDetailTable from "@/components/MeeutpDetailTable";
 import MainBox from "@/components/common/MainBox";
 
-const App = ({ type }) => {
-  const itemReducer =
-    useSelector((s) => s.itemReducer[type]) || new ItemReducer();
-  let { Item = new Meetup() } = itemReducer;
+const App = ({ data }) => {
+  let { item, mission, poster } = data;
 
-  const event = itemReducer.getRefItem(Item.get_paretnt_type());
-
-  const images = itemReducer.getRelList("image");
-  let poster_jp = images.length
-    ? images.filter((img) => img.name.endsWith("JP"))
+  let poster_jp = poster.length
+    ? poster.filter((img) => img.name.endsWith("JP"))
     : null;
   poster_jp = poster_jp.length ? poster_jp[0].src() : null;
 
@@ -28,20 +22,20 @@ const App = ({ type }) => {
       <img
         src={
           poster_jp ||
-          Item.image_url ||
-          Item.rocket_image_url ||
+          item.image_url ||
+          item.rocket_image_url ||
           "https://img.virtualrocketwatching.net/image/image_3636fb8c-5931-4993-82c9-1745ce031d0e.jpeg"
         }
         alt={"mission thumbnail"}
         width="100%"
         style={{ maxWidth: "100vw", maxHeight: "90vh" }}
       />
-      {Item.image_url ? (
+      {item.image_url ? (
         <Typography variant="body2" sx={{ textAlign: "center" }}>
-          Image Credit: {Item.image_credit}
+          Image Credit: {item.image_credit}
         </Typography>
       ) : (
-        Item.rocket_image_url && (
+        item.rocket_image_url && (
           <Typography variant="body2" sx={{ textAlign: "center" }}>
             Image Credit: via{" "}
             <Link href={"http://nextspaceflight.com"} external>
@@ -86,9 +80,9 @@ const App = ({ type }) => {
                 pl: 1,
               }}
             >
-              {Item.type.toUpperCase()}: {Item.get_jp_value("title")}
+              {item.type.toUpperCase()}: {item.get_jp_value("title")}
             </Typography>
-            <MeeutpDetailTable item={Item} event={event} />
+            <MeeutpDetailTable item={item} event={mission} />
           </Grid>
           <Grid
             xs={12}

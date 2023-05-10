@@ -70,7 +70,7 @@ const App = ({ data }) => {
                 pl: 1,
               }}
             >
-              {item.type.toUpperCase()}: {item.get_jp_value("title")}
+              {data.title()}
             </Typography>
             <MeeutpDetailTable item={item} event={mission} />
           </Grid>

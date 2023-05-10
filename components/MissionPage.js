@@ -63,7 +63,7 @@ const App = ({ data }) => {
             }}
           >
             <Typography
-              variant="h4"
+              variant="h5"
               sx={{
                 fontWeight: "bold",
                 mt: 3,
@@ -71,7 +71,7 @@ const App = ({ data }) => {
                 pl: 1,
               }}
             >
-              {item.get_jp_value("name")}
+              {data.title()}
             </Typography>
             <MissionDetailTable item={item} meetup={meetup} />
           </Grid>

@@ -31,6 +31,14 @@ export class MissionDetail implements MissionDetailIF {
     this.countdown = countdown ? new Countdown(countdown) : undefined
   }
 
+  title() {
+    let res = this.item.get_jp_value("name")
+    if (this.item instanceof Launch) {
+      res = `${this.item.get_jp_value("rocket")} | ${res}`
+    }
+    return res
+  }
+
   thumbnail() {
     const res = this.item?.thumbnail() || this.rocket?.thumbnail() || DEFAULT_THUMBNAIL
     return res === NSF_LOGO ? DEFAULT_THUMBNAIL : res
@@ -61,11 +69,20 @@ export class MeetupDetail implements MeetupDetailIF {
     let poster_jp = this.poster?.length
       ? this?.poster.filter((img: any) => img.name.endsWith("JP"))
       : null;
-    return poster_jp?.length ? poster_jp[0].src() : null;
+    return poster_jp?.length ? poster_jp[0].src() : "";
   }
 
-  thumbnail() {
-    const res = this.poster_jp() || this.item.thumbnail() || this.mission?.thumbnail() || DEFAULT_THUMBNAIL
+  title() {
+    return `${this.item.type.toUpperCase()} : ${this.item.get_jp_value("title")}`
+  }
+
+  thumbnail(incluidePoster = true) {
+    let res: string = this.item.thumbnail() || this.mission?.thumbnail() || DEFAULT_THUMBNAIL
+
+    if (incluidePoster) {
+      res = res || this.poster_jp()
+    }
+
     return res === NSF_LOGO ? DEFAULT_THUMBNAIL : res
   }
 }

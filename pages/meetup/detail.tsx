@@ -35,9 +35,8 @@ const App = (_data: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <>
       <OgpHead
-        title={data.title()}
+        title={"ミッション情報 : " + data.title()}
         thumbnailUrl={data.thumbnail(false)}
-        description="「ロケット打ち上げを観る集会」集会情報"
       />
       <MeetupPage data={data} />
     </>

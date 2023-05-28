@@ -205,8 +205,8 @@ export const ResponsiveLayout = (props: React.PropsWithChildren<{
         bgColor="#004F8A"
         drawer={drawer()}
         sidebar={<SideBar />}
+        loading={props.loading}
       >
-        {props.loading && <LinearProgress />}
         <Box
           sx={{
             height: "100%",

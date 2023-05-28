@@ -7,7 +7,7 @@ const theme = createTheme({
       main: "#004F8A",
       light: "#004F8A",
       dark: "#004F8A",
-    },
+    }
   },
 });
 

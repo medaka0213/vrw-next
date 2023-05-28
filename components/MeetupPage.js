@@ -2,8 +2,9 @@ import React from "react";
 
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
-import { DialogWrapper } from "react-vrw";
+import { ImagePreview } from "react-vrw";
 import { Link } from "@/components/Link";
 
 import MeeutpDetailTable from "@/components/MeeutpDetailTable";
@@ -11,16 +12,9 @@ import MainBox from "@/components/common/MainBox";
 
 const App = ({ data }) => {
   let { item, mission } = data;
-
   const ImageDialog = () => (
-    <DialogWrapper>
-      <img
-        src={data.thumbnail()}
-        alt={"mission thumbnail"}
-        width="100%"
-        style={{ maxWidth: "100vw", maxHeight: "90vh" }}
-      />
-      {item.image_url ? (
+    <ImagePreview src={data.thumbnail()} alt={"thumbnail"}>
+      {data.poster_jp() ? null : item.image_url ? (
         <Typography variant="body2" sx={{ textAlign: "center" }}>
           Image Credit: {item.image_credit}
         </Typography>
@@ -34,7 +28,7 @@ const App = ({ data }) => {
           </Typography>
         )
       )}
-    </DialogWrapper>
+    </ImagePreview>
   );
 
   return (

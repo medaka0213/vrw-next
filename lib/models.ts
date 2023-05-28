@@ -78,9 +78,8 @@ export class MeetupDetail implements MeetupDetailIF {
 
   thumbnail(incluidePoster = true) {
     let res: string = this.item.thumbnail() || this.mission?.thumbnail() || DEFAULT_THUMBNAIL
-
     if (incluidePoster) {
-      res = res || this.poster_jp()
+      res = this.poster_jp() || res
     }
 
     return res === NSF_LOGO ? DEFAULT_THUMBNAIL : res

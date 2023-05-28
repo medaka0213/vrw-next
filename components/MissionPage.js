@@ -3,7 +3,7 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
-import { Youtube, DialogWrapper } from "react-vrw";
+import { Youtube, ImagePreview } from "react-vrw";
 
 import { Link } from "@/components/Link";
 import MissionDetailTable from "@/components/MissionDetailTable";
@@ -12,15 +12,9 @@ import Timeline from "@/components/Timeline";
 import SlideShow from "@/components/Slide";
 
 const App = ({ data }) => {
-  let {item, slide, meetup, countdown} = data;
+  let { item, slide, meetup, countdown } = data;
   const ImageDialog = () => (
-    <DialogWrapper>
-      <img
-        src={data.thumbnail()}
-        alt={"mission thumbnail"}
-        width="100%"
-        style={{ maxWidth: "100vw", maxHeight: "90vh" }}
-      />
+    <ImagePreview src={data.thumbnail()} alt={"thumbnail"}>
       {item.image_url ? (
         <Typography variant="body2" sx={{ textAlign: "center" }}>
           Image Credit: {item.image_credit}
@@ -35,7 +29,7 @@ const App = ({ data }) => {
           </Typography>
         )
       )}
-    </DialogWrapper>
+    </ImagePreview>
   );
 
   return (

@@ -1,5 +1,5 @@
 import {
-  api, TimeRange, ParseItemList, sort_array,
+  ApiClient, DataApiClient, TimeRange, ParseItemList, sort_array,
   ParseItemByTypes, ParseItem
 } from "react-vrw";
 
@@ -8,28 +8,41 @@ interface ParamItem {
   value: number | string;
 }
 
-export const fetGetItems = async (type: string, params: ParamItem[]) => {
-  let res = await api.get(
-    `/q/${type}/?${(params || []).map((p) => `${p.key}=${p.value}`).join("&")}`
-  );
-  return ParseItemList(res.payload?.Items || []).reverse();
+const API_KEY = process.env.API_KEY || "API_KEY";
+const API_BASE_URL = process.env.API_BASE_URL || "/api";
+
+class ServerSideDataApiClient extends DataApiClient {
+  constructor() {
+    super({
+      apiKey: API_KEY,
+      baseURL: API_BASE_URL,
+    });
+  }
+}
+
+export const fetGetItems = async ({ type, paramList = [], params = {} }: { type: string, paramList?: ParamItem[]; params?: any }) => {
+  let req = new ServerSideDataApiClient();
+  paramList.forEach(p => params[p.key] = p.value)
+  let res: any[] = await req.listItem({ type, params });
+  return ParseItemList(res || []);
 };
 
 export const fetGetSingleItem = async ({ type, pk }: { type: string, pk: string }) => {
-  let res = await api.get(`/q/${type}/i/${encodeURI(pk)}`);
-  return res.payload?.Item ? ParseItem(res.payload?.Item) : null;
+  let req = new ServerSideDataApiClient();
+  let res = await req.getItem({ type, pk });
+  return res ? ParseItem(res) : null;
 };
 
 export const fetGetRelation = async ({ type, pk }: { type: string, pk: string }) => {
-  let res = await api.get(`/q/${type}/i/${encodeURI(pk)}/rel`);
-  let items: any[] = res.payload?.Items || [];
-  return ParseItemByTypes(items);
+  let req = new ServerSideDataApiClient();
+  let res = await req.getRelation({ type, pk });
+  return ParseItemByTypes(res || []);
 }
 
 export const fetGetReference = async ({ type, pk }: { type: string, pk: string }) => {
-  let res = await api.get(`/q/${type}/i/${encodeURI(pk)}/ref`);
-  let items: any[] = res.payload?.Items || [];
-  return ParseItemByTypes(items);
+  let req = new ServerSideDataApiClient();
+  let res = await req.getReference({ type, pk });
+  return ParseItemByTypes(res);
 }
 
 const getDatetimeRange = (dt: any = new Date()) => {
@@ -51,24 +64,39 @@ const getDatetimeRange = (dt: any = new Date()) => {
 };
 
 export const getMissions = async (dt: any = new Date()) => {
-  const params = [
+  const paramList = [
     getDatetimeRange(dt),
     {
       key: "datetime_date_type",
       value: "CONFIRMED",
     },
   ];
-  return await fetGetItems("mission", params);
+  return await fetGetItems({ type: "mission", paramList });
 };
 
 export const getMeetup = async (dt: any = new Date()) => {
-  const params = [getDatetimeRange(dt)];
-  return await fetGetItems("meetup", params);
+  const paramList = [getDatetimeRange(dt)];
+  return await fetGetItems({ type: "meetup", paramList });
 };
 
 export const getEvents = async (dt: any = new Date()) => {
   const missions = await getMissions(dt);
   const meetups = await getMeetup(dt);
 
-  return sort_array([...missions, ...meetups], ["datetime"]).reverse();
+  return sort_array([...missions, ...meetups], ["datetime"]);
 };
+
+
+export class PubClient extends ApiClient {
+  constructor() {
+    super({
+      apiKey: "",
+      baseURL: "/api"
+    });
+  }
+
+  async getItems({ type }: { type: "mission" | "meetup" | "events" }) {
+    const res = await this.callApiJson(`/q/${type}`, { method: "GET" });
+    return ParseItemList(res).reverse();
+  }
+}

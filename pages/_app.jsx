@@ -4,7 +4,6 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider } from "@emotion/react";
 
-import { createWrapper } from "next-redux-wrapper";
 import { store as makeStore } from "react-vrw";
 
 import theme from "../theme";
@@ -15,7 +14,6 @@ import { ResponsiveLayout } from "../components/Layout";
 import { Analytics } from "@vercel/analytics/react";
 
 const clientSideEmotionCache = createEmotionCache();
-const wrapper = createWrapper(makeStore, { debug: true });
 
 function App(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
@@ -53,4 +51,4 @@ function App(props) {
   );
 }
 
-export default wrapper.withRedux(App);
+export default App;

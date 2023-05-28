@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
 
 import LinerProgress from "@mui/material/LinearProgress";
 import List from "@mui/material/List";
@@ -12,21 +11,10 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-import { TabsParent, DEFAULT_QUERY } from "react-vrw";
+import { TabsParent } from "react-vrw";
 
-import { getEvents, fetGetItems } from "../lib/client";
+import { PubClient } from "../lib/client";
 import MissionIcon from "@/components/MissionIcon";
-
-const getParams = (type) => {
-  return DEFAULT_QUERY[type]
-    ? DEFAULT_QUERY[type]()
-    : [
-        {
-          key: "limit",
-          value: 1000,
-        },
-      ];
-};
 
 const SmallItemList = ({ items, loading, ...props }) => {
   return (
@@ -93,49 +81,17 @@ const SmallItemList = ({ items, loading, ...props }) => {
   );
 };
 
-const ItemList = ({ mode, ...props }) => {
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const load = async () => {
-    setLoading(true);
-    let items = await getEvents();
-    setItems(items);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    load();
-  }, [mode]);
-
-  return (
-    <>
-      <Typography
-        variant="caption"
-        align="center"
-        color={"text.secondary"}
-        sx={{
-          mx: 2,
-        }}
-      >
-        最近の項目を表示しています
-      </Typography>
-      <SmallItemList items={items} loading={loading} {...props} />
-    </>
-  );
-};
-
 const ItemListByType = ({ type, ...props }) => {
+  const req = new PubClient();
   const router = useRouter();
 
-  const { Items = [] } = useSelector((s) => s.itemReducer[type]) || {}
+  const Items = [];
   const [loading, setLoading] = useState(false);
   const [fetchedItems, setFetchedItems] = useState([]);
 
   const load = async () => {
     setLoading(true);
-    const params = getParams(type);
-    let items = await fetGetItems(type, params);
+    let items = await req.getItems({ type });
     setFetchedItems(items);
     setLoading(false);
   };
@@ -163,15 +119,17 @@ const ItemListByType = ({ type, ...props }) => {
           : "最近の項目を表示しています"}
       </Typography>
       <SmallItemList items={fetchedItems} loading={loading} {...props} />
-      <Button
-        variant="outlined"
-        onClick={() => router.push(`/${type}`)}
-        sx={{
-          width: "100%",
-        }}
-      >
-        検索画面へ
-      </Button>
+      {type !== "events" && (
+        <Button
+          variant="outlined"
+          onClick={() => router.push(`/${type}`)}
+          sx={{
+            width: "100%",
+          }}
+        >
+          検索画面へ
+        </Button>
+      )}
     </>
   );
 };
@@ -198,7 +156,7 @@ const App = () => {
       list={[
         {
           title: "カレンダー",
-          content: <ItemList />,
+          content: <ItemListByType type="events" />,
         },
         {
           title: "ミッション",

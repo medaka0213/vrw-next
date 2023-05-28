@@ -8,7 +8,7 @@ import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
-import { SEARCH_ITEMS, sort_array } from "react-vrw";
+import { getSearchItems, sort_array } from "react-vrw";
 import MissionBadge from "@/components/MissionBadge";
 import SortForm from "./SortForm";
 
@@ -62,14 +62,21 @@ export const MeeutpListItem = ({ item }) => {
 
 const App = ({ items: defaultItems }) => {
   const [items, setItems] = React.useState(defaultItems);
+  const [sort, setSort] = React.useState("datetime");
+  const [order, setOrder] = React.useState("asc");
 
   const handleSubmit = ({ sort, order }) => {
+    setSort(sort);
+    setOrder(order);
+  };
+
+  React.useEffect(() => {
     let _items = sort_array(defaultItems, [sort]);
     if (order === "desc") {
       _items.reverse();
     }
     setItems(_items);
-  };
+  }, [defaultItems, sort, order]);
 
   return (
     <>
@@ -89,7 +96,7 @@ const App = ({ items: defaultItems }) => {
           <Grid xs={12} md={8} pb={1} px={1}>
             <SortForm
               onSubmit={handleSubmit}
-              keys={SEARCH_ITEMS["meetup"]}
+              keys={getSearchItems("meetup")}
               defaultSort="datetime"
               defaultOrder="asc"
             />

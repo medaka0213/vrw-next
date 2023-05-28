@@ -1,27 +1,45 @@
-import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import Head from "next/head";
 import Router from "next/router";
-import { useDispatch, useSelector } from "react-redux";
 
-import LinearProgress from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
 
 import MissionList from "@/components/MissionList";
 import MainBox from "@/components/common/MainBox";
 import OgpHead from "@/components/OgpHead";
 
+import { fetGetItems } from "@/lib/client";
+
 import {
-  GET_ITEMS,
   SearchDetailForm,
   TimeRange,
   ParamToQueryItem,
-  SEARCH_ITEMS,
+  getSearchItems,
   DEFAULT_QUERY,
+  getDefaultQuery,
+  ParseItemList,
 } from "react-vrw";
 
+export const getServerSideProps = async (param) => {
+  let { query } = param;
+  let type = "mission";
+  if (Object.keys(query).length === 0) {
+    query = {};
+    getDefaultQuery(type).forEach(({ key, value }) => {
+      query[key] = value;
+    });
+  }
+  const res = await fetGetItems({ type, params: query });
+  return {
+    props: {
+      type,
+      query,
+      Items: res.map((r) => r.data()),
+    },
+  };
+};
+
 const isDatetime = (key, type) => {
-  const keyList = SEARCH_ITEMS[type] || [];
+  const keyList = getSearchItems(type);
   const target = keyList.filter((k) => k.value === key);
   return target.length ? target[0].type === "datetime" : false;
 };
@@ -48,37 +66,9 @@ const getParams = (type, query, keys) => {
   }
 };
 
-const getKeys = (config, type) => {
-  return (
-    SEARCH_ITEMS[type] ||
-    (config.search_keys &&
-      config.search_keys.map((k) => {
-        return {
-          value: k,
-          type:
-            k === "datetime" || k.includes("created") || k.includes("updated")
-              ? "datetime"
-              : "string",
-        };
-      }))
-  );
-};
-
-const App = () => {
-  const router = useRouter();
-  const { query } = router;
-  const type = "mission";
-
-  const itemReducer = useSelector((s) => s.itemReducer[type]);
-  const { isReceived, Items, config = {} } = itemReducer || Object.create(null);
-  const dispatch = useDispatch();
-  const [params, setParams] = React.useState([]);
+const App = ({ query, Items, type }) => {
   const [queries, setQueries] = React.useState([]);
-  const [keys, setKeys] = React.useState(getKeys(config, type));
-
-  const loadItems = (params) => {
-    dispatch(GET_ITEMS({ type, params }));
-  };
+  let keys = getSearchItems(type);
 
   const movePage = (params) => {
     params = params.map((p) => `${p.key}=${p.value}`);
@@ -87,9 +77,6 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (!router.isReady) return;
-
-    let keys = getKeys(config, type);
     const params = getParams(type, query, keys);
     const queries = params.map((p) => {
       let pld = {};
@@ -103,18 +90,12 @@ const App = () => {
         enabled: true,
       };
     });
-
-    setParams(params);
     setQueries(queries);
-    setKeys(keys);
-    loadItems(params);
-  }, [dispatch, query]);
+  }, [query]);
 
   return (
     <>
-      <OgpHead title="ミッションを検索する">
-        <title>{isReceived ? `ミッションを検索する` : "loading..."}</title>
-      </OgpHead>
+      <OgpHead title="ミッションを検索する"></OgpHead>
       <MainBox
         sx={{
           border: "1px solid #eaeaea",
@@ -140,13 +121,9 @@ const App = () => {
           注意: 日本語未対応です。英名・国際標準時で検索してください。
         </Typography>
       </MainBox>
-      {isReceived ? (
-        <MainBox>
-          <MissionList items={Items || []} />
-        </MainBox>
-      ) : (
-        <LinearProgress />
-      )}
+      <MainBox>
+        <MissionList items={ParseItemList(Items) || []} />
+      </MainBox>
     </>
   );
 };

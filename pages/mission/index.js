@@ -14,7 +14,6 @@ import {
   TimeRange,
   ParamToQueryItem,
   getSearchItems,
-  DEFAULT_QUERY,
   getDefaultQuery,
   ParseItemList,
 } from "react-vrw";
@@ -46,14 +45,7 @@ const isDatetime = (key, type) => {
 
 const getParams = (type, query, keys) => {
   if (Object.keys(query).length === 0) {
-    return DEFAULT_QUERY[type]
-      ? DEFAULT_QUERY[type]()
-      : [
-          {
-            key: "limit",
-            value: 1000,
-          },
-        ];
+    return getDefaultQuery(type);
   } else {
     return Object.keys(query).map((k) => {
       const target = keys.filter((key) => key.value === k);

@@ -1,7 +1,6 @@
 import React from "react";
 import dynamic from "next/dynamic";
 
-import LinearProgress from "@mui/material/LinearProgress";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -195,9 +194,11 @@ const SideBar = () => {
   );
 };
 
-export const ResponsiveLayout = (props: React.PropsWithChildren<{
-  loading?: boolean;
-}>) => {
+export const ResponsiveLayout = (
+  props: React.PropsWithChildren<{
+    loading?: boolean;
+  }>
+) => {
   return (
     <>
       <Layout

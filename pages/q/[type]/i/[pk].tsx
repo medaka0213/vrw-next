@@ -22,7 +22,7 @@ export async function getStaticPaths() {
     paths: items.map((item: any) => ({
       params: { pk: item.pk, type: "mission" },
     })),
-    fallback: "blocking",
+    fallback: true,
   };
 }
 

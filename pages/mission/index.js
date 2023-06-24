@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Router from "next/router";
+import { useRouter } from "next/router";
 
+import LinearProgress from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
 
 import MissionList from "@/components/MissionList";
@@ -15,11 +17,9 @@ import {
   ParamToQueryItem,
   getSearchItems,
   getDefaultQuery,
-  ParseItemList,
 } from "react-vrw";
 
-export const getServerSideProps = async (param) => {
-  let { query } = param;
+const fetchProps = async (query) => {
   let type = "mission";
   if (Object.keys(query).length === 0) {
     query = {};
@@ -27,14 +27,7 @@ export const getServerSideProps = async (param) => {
       query[key] = value;
     });
   }
-  const res = await fetGetItems({ type, params: query });
-  return {
-    props: {
-      type,
-      query,
-      Items: res.map((r) => r.data()),
-    },
-  };
+  return await fetGetItems({ type, params: query });
 };
 
 const isDatetime = (key, type) => {
@@ -58,7 +51,13 @@ const getParams = (type, query, keys) => {
   }
 };
 
-const App = ({ query, Items, type }) => {
+const App = () => {
+  const { query } = useRouter();
+  const type = "mission";
+
+  const [items, setItems] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
   const [queries, setQueries] = React.useState([]);
   let keys = getSearchItems(type);
 
@@ -67,6 +66,17 @@ const App = ({ query, Items, type }) => {
     const path = `/${type}/?${params.join("&")}`;
     Router.push(path);
   };
+
+  useEffect(() => {
+    async function fetchData() {
+      setIsLoaded(false);
+      const res = await fetchProps(query);
+      console.log("result", res);
+      setItems(res);
+      setIsLoaded(true);
+    }
+    fetchData();
+  }, [query]);
 
   useEffect(() => {
     const params = getParams(type, query, keys);
@@ -113,9 +123,13 @@ const App = ({ query, Items, type }) => {
           注意: 日本語未対応です。英名・国際標準時で検索してください。
         </Typography>
       </MainBox>
-      <MainBox>
-        <MissionList items={ParseItemList(Items) || []} />
-      </MainBox>
+      {isLoaded ? (
+        <MainBox>
+          <MissionList items={items || []} />
+        </MainBox>
+      ) : (
+        <LinearProgress />
+      )}
     </>
   );
 };

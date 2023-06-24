@@ -9,7 +9,7 @@ interface ParamItem {
 }
 
 const API_KEY = process.env.API_KEY || "API_KEY";
-const API_BASE_URL = process.env.API_BASE_URL || "/api";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 class ServerSideDataApiClient extends DataApiClient {
   constructor() {
@@ -24,6 +24,7 @@ export const fetGetItems = async ({ type, paramList = [], params = {} }: { type:
   let req = new ServerSideDataApiClient();
   paramList.forEach(p => params[p.key] = p.value)
   let res: any[] = await req.listItem({ type, params });
+  console.log("fetGetItems", res)
   return ParseItemList(res || []);
 };
 

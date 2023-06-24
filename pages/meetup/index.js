@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Router from "next/router";
+import { useRouter } from "next/router";
 
+import LinearProgress from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
 
 import MeeutpList from "@/components/MeeutpList";
@@ -13,13 +15,11 @@ import {
   SearchDetailForm,
   TimeRange,
   ParamToQueryItem,
-  getDefaultQuery,
-  ParseItemList,
   getSearchItems,
+  getDefaultQuery,
 } from "react-vrw";
 
-export const getServerSideProps = async (param) => {
-  let { query } = param;
+const fetchProps = async (query) => {
   let type = "meetup";
   if (Object.keys(query).length === 0) {
     query = {};
@@ -27,18 +27,11 @@ export const getServerSideProps = async (param) => {
       query[key] = value;
     });
   }
-  const res = await fetGetItems({ type, params: query });
-  return {
-    props: {
-      type,
-      query,
-      Items: res.map((r) => r.data()),
-    },
-  };
+  return await fetGetItems({ type, params: query });
 };
 
 const isDatetime = (key, type) => {
-  const keyList = getSearchItems(type) || [];
+  const keyList = getSearchItems(type);
   const target = keyList.filter((k) => k.value === key);
   return target.length ? target[0].type === "datetime" : false;
 };
@@ -58,7 +51,13 @@ const getParams = (type, query, keys) => {
   }
 };
 
-const App = ({ query, Items, type }) => {
+const App = () => {
+  const { query } = useRouter();
+  const type = "meetup";
+
+  const [items, setItems] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
   const [queries, setQueries] = React.useState([]);
   let keys = getSearchItems(type);
 
@@ -67,6 +66,17 @@ const App = ({ query, Items, type }) => {
     const path = `/${type}/?${params.join("&")}`;
     Router.push(path);
   };
+
+  useEffect(() => {
+    async function fetchData() {
+      setIsLoaded(false);
+      const res = await fetchProps(query);
+      console.log("result", res);
+      setItems(res);
+      setIsLoaded(true);
+    }
+    fetchData();
+  }, [query]);
 
   useEffect(() => {
     const params = getParams(type, query, keys);
@@ -88,7 +98,13 @@ const App = ({ query, Items, type }) => {
   return (
     <>
       <OgpHead title="集会を検索する"></OgpHead>
-      <MainBox>
+      <MainBox
+        sx={{
+          border: "1px solid #eaeaea",
+          borderRadius: "4px",
+          backgroundColor: "background.paper",
+        }}
+      >
         <SearchDetailForm
           onSubmit={(params) => {
             movePage(
@@ -107,9 +123,13 @@ const App = ({ query, Items, type }) => {
           注意: 日本語未対応です。英名・国際標準時で検索してください。
         </Typography>
       </MainBox>
-      <MainBox>
-        <MeeutpList items={ParseItemList(Items) || []} />
-      </MainBox>
+      {isLoaded ? (
+        <MainBox>
+          <MeeutpList items={items || []} />
+        </MainBox>
+      ) : (
+        <LinearProgress />
+      )}
     </>
   );
 };

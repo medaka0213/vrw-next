@@ -14,7 +14,7 @@ import {
 } from "@/lib/client";
 
 export async function getStaticPaths() {
-  const items = await fetAdminGetItems({
+  /*const items = await fetAdminGetItems({
     type: "mission",
     params: { limit: 10000 },
   });
@@ -22,6 +22,10 @@ export async function getStaticPaths() {
     paths: items.map((item: any) => ({
       params: { pk: item.pk, type: "mission" },
     })),
+    fallback: true,
+  };*/
+  return {
+    paths: [],
     fallback: true,
   };
 }

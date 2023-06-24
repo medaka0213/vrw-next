@@ -14,14 +14,15 @@ import {
 import OgpHead from "@/components/OgpHead";
 
 export async function getStaticPaths() {
-  const items = await fetAdminGetItems({
-    type: "meetup",
-    params: { limit: 10000 },
-  });
+  /*const items = await fetAdminGetItems({type: "meetup",params: { limit: 10000 },});
   return {
     paths: items.map((item: any) => ({
       params: { pk: item.pk, type: "meetup" },
     })),
+    fallback: true,
+  };*/
+  return {
+    paths: [],
     fallback: true,
   };
 }

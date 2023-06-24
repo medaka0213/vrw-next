@@ -1,5 +1,6 @@
 import * as React from "react";
 import Router from "next/router";
+import Link from "next/link";
 
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
@@ -25,40 +26,44 @@ export const MissionListItem = ({ item }) => {
   }
 
   return (
-    <ListItemButton
-      alignItems="flex-start"
-      onClick={() => Router.push(item.itemDetailPath("pub"))}
+    <Link
+      href={item.itemDetailPath("admin")}
+      passHref
+      key={item.pk + "link"}
+      style={{ textDecoration: "none", color: "#000000de" }}
     >
-      <ListItemAvatar>
-        <MissionBadge item={item}>
-          <Avatar
-            alt="Remy Sharp"
-            src={img_url}
-            variant="square"
-            sx={{ width: 72, height: 72, mr: 2 }}
-          />
-        </MissionBadge>
-      </ListItemAvatar>
-      <ListItemText
-        primary={item.missionTitle_JP()}
-        secondary={
-          <React.Fragment>
-            <Typography
-              sx={{ display: "inline" }}
-              component="span"
-              variant="body2"
-              color="text.primary"
-            >
-              {item.datetime_time_type === "CONFIRMED" && "日本時間"}{" "}
-              {item.datetime_format_JP}
-            </Typography>
-            <Typography>
-              {item.get_jp_value("overview") && item.get_jp_value("overview")}
-            </Typography>
-          </React.Fragment>
-        }
-      />
-    </ListItemButton>
+      <ListItemButton>
+        <ListItemAvatar>
+          <MissionBadge item={item}>
+            <Avatar
+              alt="Remy Sharp"
+              src={img_url}
+              variant="square"
+              sx={{ width: 72, height: 72, mr: 2 }}
+            />
+          </MissionBadge>
+        </ListItemAvatar>
+        <ListItemText
+          primary={item.missionTitle_JP()}
+          secondary={
+            <React.Fragment>
+              <Typography
+                sx={{ display: "inline" }}
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                {item.datetime_time_type === "CONFIRMED" && "日本時間"}{" "}
+                {item.datetime_format_JP}
+              </Typography>
+              <Typography>
+                {item.get_jp_value("overview") && item.get_jp_value("overview")}
+              </Typography>
+            </React.Fragment>
+          }
+        />
+      </ListItemButton>
+    </Link>
   );
 };
 

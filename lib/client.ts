@@ -10,6 +10,7 @@ interface ParamItem {
 
 const API_KEY = process.env.API_KEY || "API_KEY";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const ADMIN_API_BASE_URL = process.env.ADMIN_API_BASE_URL;
 
 class ServerSideDataApiClient extends DataApiClient {
   constructor() {
@@ -20,11 +21,28 @@ class ServerSideDataApiClient extends DataApiClient {
   }
 }
 
+class AdminClient extends DataApiClient {
+  constructor() {
+    super({
+      apiKey: "",
+      baseURL: ADMIN_API_BASE_URL
+    });
+  }
+}
+
 export const fetGetItems = async ({ type, paramList = [], params = {} }: { type: string, paramList?: ParamItem[]; params?: any }) => {
   let req = new ServerSideDataApiClient();
   paramList.forEach(p => params[p.key] = p.value)
   let res: any[] = await req.listItem({ type, params });
   console.log("fetGetItems", res)
+  return ParseItemList(res || []);
+};
+
+export const fetAdminGetItems = async ({ type, paramList = [], params = {} }: { type: string, paramList?: ParamItem[]; params?: any }) => {
+  let req = new AdminClient();
+  paramList.forEach(p => params[p.key] = p.value)
+  let res: any[] = await req.listItem({ type, params });
+  console.log("fetAdminGetItems", res)
   return ParseItemList(res || []);
 };
 
@@ -96,8 +114,9 @@ export class PubClient extends ApiClient {
     });
   }
 
-  async getItems({ type }: { type: "mission" | "meetup" | "events" }) {
+  async getItems({ type }: { type: "mission" | "meetup" | "launch" | "events" }) {
     const res = await this.callApiJson(`/q/${type}`, { method: "GET" });
     return ParseItemList(res).reverse();
   }
 }
+

@@ -25,7 +25,7 @@ const SmallItemList = ({ items, loading, ...props }) => {
           <>
             <Divider key={item.pk + "divider"} />
             <Link
-              href={item.itemDetailPath("pub")}
+              href={item.itemDetailPath("admin")}
               passHref
               key={item.pk + "link"}
               style={{ textDecoration: "none", color: "#000000de" }}

@@ -2,7 +2,6 @@ import React from "react";
 
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import SaveAltIcon from "@mui/icons-material/SaveAlt";
 
 import { ImagePreview, ImageDownloadButton } from "react-vrw";
 

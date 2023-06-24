@@ -48,20 +48,23 @@ export const getStaticProps = async (context: any) => {
       item: item.data(),
       mission: launch ? launch.data() : event ? event.data() : null,
       poster: image?.map((item: any) => item.data()) || [],
+      loaded: true,
     },
   };
 };
 
 const App = (_data: InferGetServerSidePropsType<typeof getStaticProps>) => {
   let data = new MeetupDetail(_data);
-  return (
+  return _data.loaded ? (
     <>
       <OgpHead
         title={"集会情報 : " + data.title()}
         thumbnailUrl={data.thumbnail(false)}
       />
-      {_data ? <MeetupPage data={data} /> : <LinearProgress />}
+      <MeetupPage data={data} />
     </>
+  ) : (
+    <LinearProgress />
   );
 };
 

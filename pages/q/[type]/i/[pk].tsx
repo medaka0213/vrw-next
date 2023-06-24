@@ -57,20 +57,23 @@ export const getStaticProps = async (context: any) => {
       slide: slide ? slide.data() : null,
       meetup: meetup?.map((item: any) => item.data()) || [],
       countdown: countdown ? countdown.data() : null,
+      loaded: true,
     },
   };
 };
 
 const App = (_data: InferGetServerSidePropsType<typeof getStaticProps>) => {
   let data = new MissionDetail(_data);
-  return (
+  return _data.loaded ? (
     <>
       <OgpHead
         title={"ミッション情報 : " + data.title()}
         thumbnailUrl={data.thumbnail()}
       />
-      {_data ? <MissionPage data={data} /> : <LinearProgress />}
+      <MissionPage data={data} />
     </>
+  ) : (
+    <LinearProgress />
   );
 };
 

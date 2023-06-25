@@ -13,7 +13,7 @@ import Typography from "@mui/material/Typography";
 
 import { TabsParent } from "react-vrw";
 
-import { PubClient } from "../lib/client";
+import { getEvents, getMeetup, getMissions } from "../lib/client";
 import MissionIcon from "@/components/MissionIcon";
 
 const SmallItemList = ({ items, loading, ...props }) => {
@@ -82,7 +82,6 @@ const SmallItemList = ({ items, loading, ...props }) => {
 };
 
 const ItemListByType = ({ type, ...props }) => {
-  const req = new PubClient();
   const router = useRouter();
 
   const Items = [];
@@ -91,7 +90,14 @@ const ItemListByType = ({ type, ...props }) => {
 
   const load = async () => {
     setLoading(true);
-    let items = await req.getItems({ type });
+    let items = [];
+    if (type === "mission") {
+      items = await getMissions();
+    } else if (type === "meetup") {
+      items = await getMeetup();
+    } else {
+      items = await getEvents();
+    }
     setFetchedItems(items);
     setLoading(false);
   };

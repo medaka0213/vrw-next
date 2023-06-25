@@ -21,7 +21,7 @@ class ServerSideDataApiClient extends DataApiClient {
   }
 }
 
-class AdminClient extends DataApiClient {
+export class AdminClient extends DataApiClient {
   constructor() {
     super({
       apiKey: "",

@@ -52,7 +52,7 @@ const getParams = (type, query, keys) => {
 };
 
 const App = () => {
-  const { query } = useRouter();
+  const { query, isReady } = useRouter();
   const type = "mission";
 
   const [items, setItems] = useState([]);
@@ -75,7 +75,7 @@ const App = () => {
       setItems(res);
       setIsLoaded(true);
     }
-    fetchData();
+    if (isReady) fetchData();
   }, [query]);
 
   useEffect(() => {

@@ -98,7 +98,7 @@ const ItemListByType = ({ type, ...props }) => {
     } else {
       items = await getEvents();
     }
-    setFetchedItems(items);
+    setFetchedItems(items.reverse());
     setLoading(false);
   };
 

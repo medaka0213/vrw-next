@@ -9,18 +9,10 @@ import {
   fetGetSingleItem,
   fetGetRelation,
   fetGetReference,
-  fetAdminGetItems,
 } from "@/lib/client";
 import OgpHead from "@/components/OgpHead";
 
 export async function getStaticPaths() {
-  /*const items = await fetAdminGetItems({type: "meetup",params: { limit: 10000 },});
-  return {
-    paths: items.map((item: any) => ({
-      params: { pk: item.pk, type: "meetup" },
-    })),
-    fallback: true,
-  };*/
   return {
     paths: [],
     fallback: "blocking",

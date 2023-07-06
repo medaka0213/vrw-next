@@ -10,20 +10,9 @@ import {
   fetGetSingleItem,
   fetGetRelation,
   fetGetReference,
-  fetAdminGetItems,
 } from "@/lib/client";
 
 export async function getStaticPaths() {
-  /*const items = await fetAdminGetItems({
-    type: "mission",
-    params: { limit: 10000 },
-  });
-  return {
-    paths: items.map((item: any) => ({
-      params: { pk: item.pk, type: "mission" },
-    })),
-    fallback: true,
-  };*/
   return {
     paths: [],
     fallback: "blocking",

@@ -26,7 +26,7 @@ export async function getStaticPaths() {
   };*/
   return {
     paths: [],
-    fallback: true,
+    fallback: "blocking",
   };
 }
 
@@ -59,6 +59,7 @@ export const getStaticProps = async (context: any) => {
       countdown: countdown ? countdown.data() : null,
       loaded: true,
     },
+    revalidate: 600,
   };
 };
 

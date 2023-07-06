@@ -23,7 +23,7 @@ export async function getStaticPaths() {
   };*/
   return {
     paths: [],
-    fallback: true,
+    fallback: "blocking",
   };
 }
 
@@ -50,6 +50,7 @@ export const getStaticProps = async (context: any) => {
       poster: image?.map((item: any) => item.data()) || [],
       loaded: true,
     },
+    revalidate: 600,
   };
 };
 

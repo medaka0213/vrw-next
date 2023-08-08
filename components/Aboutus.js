@@ -80,6 +80,16 @@ const App = ({ sx = {} }) => {
           Discord
         </Link>
       </Typography>
+      <Typography variant="p" sx={{ mr: 3 }}>
+        <Link
+          href="https://misskey.virtualrocketwatching.net/"
+          sx={iconWrapStyle}
+          external
+        >
+          <ForumIcon sx={{ mr: 0.5 }} />
+          Misskey
+        </Link>
+      </Typography>
       <Typography variant="h5" sx={{ mt: 3 }}>
         ご連絡先
       </Typography>

@@ -80,6 +80,12 @@ const drawer = () => {
           Icon={ForumIcon}
           target="_blank"
         />
+        <ListItemLink
+          text="Misskey"
+          href="https://misskey.virtualrocketwatching.net/ "
+          Icon={ForumIcon}
+          target="_blank"
+        />
         <Divider />
         <ListItemLink text="データ配布" href="/images" Icon={SaveAltIcon} />
         <ListItemLink

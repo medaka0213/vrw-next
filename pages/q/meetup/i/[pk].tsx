@@ -1,8 +1,7 @@
-import { InferGetServerSidePropsType } from "next";
 import React from "react";
 
 import MeetupPage from "@/components/MeetupPage";
-import LinearProgress from "@mui/material/LinearProgress";
+import Error404 from "@/components/Error404";
 
 import { MeetupDetail } from "@/lib/models";
 import {
@@ -12,43 +11,12 @@ import {
 } from "@/lib/client";
 import OgpHead from "@/components/OgpHead";
 
-export async function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: "blocking",
-  };
-}
-
-export const getStaticProps = async (context: any) => {
-  const { params } = context;
-
-  const type = params.pk.split("_")[0];
-  // アイテム
-  const item = await fetGetSingleItem({ pk: params.pk, type });
-  if (!item) {
-    return { notFound: true };
-  }
-  // 関連アイテム
-  const relation = await fetGetRelation({ pk: params.pk, type });
-  const image = relation.image || [];
-  // 参照アイテム
-  const reference = await fetGetReference({ pk: params.pk, type });
-  const launch = reference.launch ? reference.launch[0] : null;
-  const event = reference.event ? reference.event[0] : null;
-  return {
-    props: {
-      item: item.data(),
-      mission: launch ? launch.data() : event ? event.data() : null,
-      poster: image?.map((item: any) => item.data()) || [],
-      loaded: true,
-    },
-    revalidate: 600,
-  };
-};
-
-const App = (_data: InferGetServerSidePropsType<typeof getStaticProps>) => {
-  let data = new MeetupDetail(_data);
-  return _data.loaded ? (
+const App = (props: any) => {
+  console.log("App", props);
+  let data = new MeetupDetail(props);
+  return props.notFound ? (
+    <Error404 />
+  ) : (
     <>
       <OgpHead
         title={"集会情報 : " + data.title()}
@@ -56,9 +24,31 @@ const App = (_data: InferGetServerSidePropsType<typeof getStaticProps>) => {
       />
       <MeetupPage data={data} />
     </>
-  ) : (
-    <LinearProgress />
   );
+};
+
+App.getInitialProps = async (context: any) => {
+  const { query } = context;
+
+  const type = query.pk.split("_")[0];
+  // アイテム
+  const item = await fetGetSingleItem({ pk: query.pk, type });
+  if (!item) {
+    return { notFound: true };
+  }
+  // 関連アイテム
+  const relation = await fetGetRelation({ pk: query.pk, type });
+  const image = relation.image || [];
+  // 参照アイテム
+  const reference = await fetGetReference({ pk: query.pk, type });
+  const launch = reference.launch ? reference.launch[0] : null;
+  const event = reference.event ? reference.event[0] : null;
+  return {
+    item: item.data(),
+    mission: launch ? launch.data() : event ? event.data() : null,
+    poster: image?.map((item: any) => item.data()) || [],
+    loaded: true,
+  };
 };
 
 export default App;

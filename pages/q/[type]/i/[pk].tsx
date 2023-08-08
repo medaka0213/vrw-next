@@ -11,7 +11,7 @@ import {
   fetGetReference,
 } from "@/lib/client";
 
-const App = (props = {}: any) => {
+const App = (props: any = {}) => {
   console.log("App", props);
   let data = new MissionDetail(props);
   return props.notFound ? (

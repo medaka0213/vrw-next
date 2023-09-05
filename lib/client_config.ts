@@ -1,4 +1,4 @@
-import { TimeRange } from 'react-vrw';
+import { TimeRange } from "@medaka0213/react-vrw";
 
 type SEARCH_MODE_TYPE = {
   label: string;

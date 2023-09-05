@@ -19,7 +19,7 @@ import NoteAltOutlinedIcon from "@mui/icons-material/NoteAltOutlined";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import Link from "next/link";
 
-import { Layout } from "react-vrw";
+import { Layout } from "@medaka0213/react-vrw";
 
 import MainBox from "./common/MainBox";
 import { Link as VRWLink } from "./Link";

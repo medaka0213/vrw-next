@@ -3,13 +3,15 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
-import { Youtube, ImagePreview } from "react-vrw";
+import { ImagePreview } from "@medaka0213/react-vrw";
 
 import { Link } from "@/components/Link";
 import MissionDetailTable from "@/components/MissionDetailTable";
-import MainBox from "@/components/common/MainBox";
 import Timeline from "@/components/Timeline";
 import SlideShow from "@/components/Slide";
+
+import MainBox from "@/components/common/MainBox";
+import VideoPreview from "@/components/common/VideoPreview";
 
 const App = ({ data }) => {
   let { item, slide, meetup, countdown } = data;
@@ -84,26 +86,11 @@ const App = ({ data }) => {
               borderRight: "1px solid #eee",
             }}
           >
-            {item.youtubeId() ? (
-              <>
-                <Youtube
-                  sx={{
-                    borderRight: "1px solid #eaeaea",
-                  }}
-                  videoId={item.youtubeId()}
-                  start={item.watch_URL_liftoff_at}
-                />
-                <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                  <Link href={item.watch_URL || item.watch_URL_option} external>
-                    中継 / アーカイブ動画
-                  </Link>
-                </Typography>
-              </>
-            ) : (
-              <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-                動画は見つかりませんでした
-              </Typography>
-            )}
+            <VideoPreview
+              url={item.watch_URL_option || item.watch_URL}
+              title="中継 / アーカイブ動画"
+              seek_offset={item.watch_URL_liftoff_at}
+            />
           </Grid>
           <Grid
             xs={12}
@@ -112,27 +99,7 @@ const App = ({ data }) => {
               borderRight: "1px solid #eee",
             }}
           >
-            {item.youtubeShortId() ? (
-              <>
-                <Youtube videoId={item.youtubeShortId()} />
-
-                <Typography
-                  variant="subtitle2"
-                  sx={{ textAlign: "center", pb: 1 }}
-                >
-                  <Link href={item.watch_URL_short} external>
-                    切り抜き動画
-                  </Link>
-                </Typography>
-              </>
-            ) : (
-              <Typography
-                variant="subtitle2"
-                sx={{ textAlign: "center", pb: 1 }}
-              >
-                切り抜き動画は見つかりませんでした
-              </Typography>
-            )}
+            <VideoPreview url={item.watch_URL_short} title="切り抜き動画" />
           </Grid>
         </Grid>
       </MainBox>

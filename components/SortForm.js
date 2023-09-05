@@ -1,6 +1,6 @@
 import React from "react";
 import { useFormik } from "formik";
-import { FormGrid, FormSelect } from "react-vrw";
+import { FormGrid, FormSelect } from "@medaka0213/react-vrw";
 
 const App = ({
   sx,

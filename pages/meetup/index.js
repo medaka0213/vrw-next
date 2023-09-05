@@ -17,7 +17,7 @@ import {
   ParamToQueryItem,
   getSearchItems,
   getDefaultQuery,
-} from "react-vrw";
+} from "@medaka0213/react-vrw";
 
 const fetchProps = async (query) => {
   let type = "meetup";

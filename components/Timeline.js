@@ -1,4 +1,4 @@
-import { ItemListTable } from "react-vrw";
+import { ItemListTable } from "@medaka0213/react-vrw";
 
 const App = ({ countdown, datetime, mode = "t_minus", ...props }) => {
   countdown = countdown.format(datetime);

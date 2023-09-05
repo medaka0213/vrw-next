@@ -11,7 +11,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-import { TabsParent } from "react-vrw";
+import { TabsParent } from "@medaka0213/react-vrw";
 
 import { getEvents, getMeetup, getMissions } from "../lib/client";
 import MissionIcon from "@/components/MissionIcon";

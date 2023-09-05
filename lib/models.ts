@@ -1,7 +1,7 @@
 import {
   ParseItem,
   Launch, Event, Rocket, Slide, Meetup, Countdown, Image
-} from "react-vrw"
+} from "@medaka0213/react-vrw"
 
 const DEFAULT_THUMBNAIL = "https://img.virtualrocketwatching.net/image/image_3636fb8c-5931-4993-82c9-1745ce031d0e.jpeg"
 const NSF_LOGO = "https://storage.googleapis.com/nextspaceflight/media/rockets/default.jpg"

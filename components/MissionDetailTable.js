@@ -1,14 +1,14 @@
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
 import DetailTable from "./DetailTable";
-import { TimeRange } from "react-vrw";
+import { TimeRange } from "@medaka0213/react-vrw";
 import { Link } from "@/components/Link";
 
 import SearchIcon from "@mui/icons-material/Search";
 import { getColor } from "../lib/item";
 
 const CountDownClock = dynamic(
-  () => import('react-vrw').then((mod) => mod.CountDownClock),
+  () => import("@medaka0213/react-vrw").then((mod) => mod.CountDownClock),
   { ssr: false }
 );
 

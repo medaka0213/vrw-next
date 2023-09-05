@@ -4,7 +4,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider } from "@emotion/react";
 
-import { store as makeStore } from "react-vrw";
+import { store as makeStore } from "@medaka0213/react-vrw";
 
 import theme from "../theme";
 import createEmotionCache from "../createEmotionCache";
@@ -36,7 +36,7 @@ function App(props) {
       Router.events.off("routeChangeComplete", end);
       Router.events.off("routeChangeError", end);
     };
-  }, [])
+  }, []);
 
   return (
     <CacheProvider value={emotionCache}>

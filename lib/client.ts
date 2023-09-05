@@ -7,7 +7,7 @@ import {
   sort_array,
   ParseItemByTypes,
   ParseItem,
-} from "react-vrw";
+} from "@medaka0213/react-vrw";
 
 interface ParamItem {
   key: string;

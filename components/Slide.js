@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import { SlideShow, Link } from "react-vrw";
+import { SlideShow, Link } from "@medaka0213/react-vrw";
 
 const App = ({ slide, ...props }) => {
   return (

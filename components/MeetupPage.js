@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-import { ImagePreview } from "react-vrw";
+import { ImagePreview } from "@medaka0213/react-vrw";
 import { Link } from "@/components/Link";
 
 import MeeutpDetailTable from "@/components/MeeutpDetailTable";

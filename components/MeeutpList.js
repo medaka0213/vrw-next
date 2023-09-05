@@ -8,7 +8,7 @@ import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
-import { getSearchItems, sort_array } from "react-vrw";
+import { getSearchItems, sort_array } from "@medaka0213/react-vrw";
 import MissionBadge from "@/components/MissionBadge";
 import SortForm from "./SortForm";
 

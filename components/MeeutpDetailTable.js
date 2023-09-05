@@ -1,5 +1,5 @@
 import DetailTable from "./DetailTable";
-import { TimeRange } from "react-vrw";
+import { TimeRange } from "@medaka0213/react-vrw";
 
 import Box from "@mui/material/Box";
 

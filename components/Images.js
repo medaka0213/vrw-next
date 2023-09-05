@@ -3,7 +3,7 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
-import { ImagePreview, ImageDownloadButton } from "react-vrw";
+import { ImagePreview, ImageDownloadButton } from "@medaka0213/react-vrw";
 
 import MainBox from "./common/MainBox";
 

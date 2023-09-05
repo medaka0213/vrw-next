@@ -1,15 +1,15 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getMissions, getMeetup, getEvents } from '@/lib/client'
+import { getMissions, getMeetup, getEvents, fetGetItems } from '@/lib/client'
 
 
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<any[]>
 ) {
-  const { key } = req.query
+  let { type, ...params } = req.query
 
-  switch (key) {
+  switch (type) {
     case 'mission':
       getMissions().then((data) => {
         res.status(200).json(data)
@@ -26,6 +26,13 @@ export default function handler(
       })
       break
     default:
-      res.status(404).json([])
+      if (typeof type !== 'string') {
+        // クエリがない場合
+        res.status(400)
+        return
+      }
+      fetGetItems({ type, params }).then((data) => {
+        res.status(200).json(data)
+      })
   }
 }

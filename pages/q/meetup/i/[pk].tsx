@@ -39,10 +39,15 @@ App.getInitialProps = async (context: any) => {
   // 関連アイテム
   const relation = await fetGetRelation({ pk: query.pk, type });
   const image = relation.image || [];
+  let launch = relation.launch ? relation.launch[0] : null;
+  let event = relation.event ? relation.event[0] : null;
   // 参照アイテム
   const reference = await fetGetReference({ pk: query.pk, type });
-  const launch = reference.launch ? reference.launch[0] : null;
-  const event = reference.event ? reference.event[0] : null;
+  if (!launch && !event) {
+    // 関連アイテムがない場合は参照アイテムを参照する
+    launch = reference.launch ? reference.launch[0] : null;
+    event = reference.event ? reference.event[0] : null;
+  }
   return {
     item: item.data(),
     mission: launch ? launch.data() : event ? event.data() : null,

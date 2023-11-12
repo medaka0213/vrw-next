@@ -6,6 +6,7 @@ import {
   format_timedelta,
 } from "@medaka0213/react-vrw";
 import { Link } from "@/components/Link";
+import OGPLoad from "@/components/common/OGPLoad";
 import { Tweet } from "react-twitter-widgets";
 
 import Typography from "@mui/material/Typography";
@@ -53,14 +54,16 @@ const App = ({
         />
       </CommonPreview>
     </>
-  ) : isTwitterUrl(url) ? (
+  ) : isTwitterUrl(url) && url.includes("/status/") ? (
     <>
       <CommonPreview>
         <Tweet tweetId={id} />
       </CommonPreview>
     </>
   ) : (
-    <CommonPreview />
+    <CommonPreview>
+      <OGPLoad url={url} image_height="200" />
+    </CommonPreview>
   );
 };
 

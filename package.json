@@ -12,7 +12,7 @@
     "@emotion/react": "^11.10.5",
     "@emotion/server": "^11.10.0",
     "@emotion/styled": "^11.10.5",
-    "@medaka0213/react-vrw": "^1.0.27",
+    "@medaka0213/react-vrw": "^1.0.31",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.3",
     "@mui/x-data-grid": "^5.17.18",

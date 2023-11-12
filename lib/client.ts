@@ -17,6 +17,7 @@ interface ParamItem {
 const API_KEY = process.env.API_KEY || "API_KEY";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_V2_BASE_URL = process.env.API_V2_BASE_URL;
+const GPT_BASE_URL = process.env.GPT_BASE_URL;
 
 class ServerSideDataApiClient extends DataApiClient {
   constructor() {
@@ -139,6 +140,35 @@ export const getEvents = async (dt: any = new Date()) => {
   return sort_array([...missions, ...meetups], ["datetime"]);
 };
 
+export type Ogp = {
+  title: string;
+  description: string;
+  image: string;
+  url: string;
+};
+
+export class ChatGptApiClient extends ApiClient {
+  constructor() {
+    super({
+      apiKey: API_KEY,
+      baseURL: GPT_BASE_URL || API_BASE_URL,
+    });
+  }
+  async getOgp({ url }: { url: string }): Promise<Ogp> {
+    const res = await this.callApiJson("/whisper/ogp?url=" + encodeURI(url), {
+      method: "GET",
+    });
+    console.log("getOgp", res);
+    return res;
+  }
+}
+
+export const getOgp = async ({ url }: { url: string }): Promise<Ogp> => {
+  const req = new ChatGptApiClient();
+  const res = await req.getOgp({ url });
+  return res;
+}
+
 export class PubClient extends ApiClient {
   constructor() {
     super({
@@ -159,5 +189,13 @@ export class PubClient extends ApiClient {
     paramList.forEach((p) => (params[p.key] = p.value));
     const res = await this.callApiJson(`/q/${type}`, { method: "GET" });
     return ParseItemList(res).reverse();
+  }
+
+  async getOgp({ url }: { url: string }): Promise<Ogp> {
+    const res = await this.callApiJson("/ogp", {
+      method: "POST",
+      body: { url },
+    });
+    return res;
   }
 }

@@ -44,10 +44,13 @@ App.getInitialProps = async (context: any) => {
   const relation = await fetGetRelation({ pk: query.pk, type });
   const rocket = relation.rocket ? relation.rocket[0] : null;
   const slide = relation.slide ? relation.slide[0] : null;
-  const meetup = relation.meetup || [];
+  let meetup = relation.meetup || [];
   // 参照アイテム
   const reference = await fetGetReference({ pk: query.pk, type });
   const countdown = reference.countdown ? reference.countdown[0] : null;
+  // 集会の配列を結合
+  meetup = meetup.concat(reference.meetup || []);
+
   return {
     item: item.data(),
     rocket: rocket ? rocket.data() : null,

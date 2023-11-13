@@ -7,8 +7,20 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "@/components/Link";
 
 import { getColor } from "../lib/item";
+import { timeRangeForWeekly } from "../lib/time";
 
 const App = ({ item, event, sx }) => {
+  let missionPath;
+  let missionName;
+  if (item.type === "weekly") {
+    let timeRange = timeRangeForWeekly(item.datetime);
+    missionPath = `/mission/?datetime=${timeRange.start}...${timeRange.end}`;
+    missionName = `過去一週間の振り返り: ${item.datetime_format()}`;
+  } else {
+    missionPath = `/mission/detail?pk=${event.pk}`;
+    missionName = event.missionTitle_JP_Short();
+  }
+
   const items = [
     {
       key: "状態",
@@ -20,15 +32,8 @@ const App = ({ item, event, sx }) => {
     {
       key: "ミッション情報",
       value: (
-        <Link
-          href={{
-            pathname: "/mission/detail",
-            query: {
-              pk: event.pk,
-            },
-          }}
-        >
-          {event.missionTitle_JP_Short()}
+        <Link href={missionPath}>
+          {missionName}
           <SearchIcon
             sx={{
               fontSize: "0.8rem",

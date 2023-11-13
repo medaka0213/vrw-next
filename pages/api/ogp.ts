@@ -1,10 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getOgp } from '@/lib/client'
+import { getOgp, Ogp } from '@/lib/client'
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<any[]>
+  res: NextApiResponse<Ogp>
 ) {
   // POSTでbody= {url} がポストされたらOGPを取得する
   if (req.method === 'POST') {

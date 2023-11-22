@@ -2,34 +2,39 @@ import React from "react";
 
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 
 import { ImagePreview } from "@medaka0213/react-vrw";
 import { Link } from "@/components/Link";
 
 import MeeutpDetailTable from "@/components/MeeutpDetailTable";
 import MainBox from "@/components/common/MainBox";
+import SlideShow from "@/components/Slide";
 
 const App = ({ data }) => {
-  let { item, mission } = data;
-  const ImageDialog = () => (
-    <ImagePreview src={data.thumbnail()} alt={"thumbnail"}>
-      {data.poster_jp() ? null : item.image_url ? (
-        <Typography variant="body2" sx={{ textAlign: "center" }}>
-          Image Credit: {item.image_credit}
-        </Typography>
-      ) : (
-        item.rocket_image_url && (
+  let { item, mission, slide } = data;
+  const ImageDialog = () =>
+    !data.thumbnail({
+      defaultThumbnail: "",
+    }).length && slide ? (
+      <SlideShow slide={slide} />
+    ) : (
+      <ImagePreview src={data.thumbnail()} alt={"thumbnail"}>
+        {data.poster_jp() ? null : item.image_url ? (
           <Typography variant="body2" sx={{ textAlign: "center" }}>
-            Image Credit: via{" "}
-            <Link href={"http://nextspaceflight.com"} external>
-              nextspaceflight.com
-            </Link>
+            Image Credit: {item.image_credit}
           </Typography>
-        )
-      )}
-    </ImagePreview>
-  );
+        ) : (
+          item.rocket_image_url && (
+            <Typography variant="body2" sx={{ textAlign: "center" }}>
+              Image Credit: via{" "}
+              <Link href={"http://nextspaceflight.com"} external>
+                nextspaceflight.com
+              </Link>
+            </Typography>
+          )
+        )}
+      </ImagePreview>
+    );
 
   return (
     <>

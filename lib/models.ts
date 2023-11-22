@@ -50,19 +50,22 @@ interface MeetupDetailIF {
   item: Meetup,
   mission?: Launch | Event
   poster?: Image[]
+  slide?: Slide,
 }
 
 export class MeetupDetail implements MeetupDetailIF {
   item: Meetup
   mission?: Launch | Event
   poster?: Image[]
+  slide?: Slide
 
   constructor({
-    item, mission, poster
+    item, mission, poster, slide
   }: MeetupDetailIF) {
     this.item = new Meetup(item)
     this.mission = mission ? ParseItem(mission) : undefined
     this.poster = (poster || []).map((m) => new Image(m))
+    this.slide = slide ? new Slide(slide) : undefined
   }
 
   poster_jp() {
@@ -76,12 +79,14 @@ export class MeetupDetail implements MeetupDetailIF {
     return `${this.item.type.toUpperCase()} : ${this.item.get_jp_value("title")}`
   }
 
-  thumbnail(incluidePoster = true) {
-    let res: string = this.item.thumbnail() || this.mission?.thumbnail() || DEFAULT_THUMBNAIL
-    if (incluidePoster) {
+  thumbnail({ includePoster = true, defaultThumbnail = DEFAULT_THUMBNAIL }: {
+    includePoster?: boolean,
+    defaultThumbnail?: string
+  } = {}): string {
+    let res: string = this.item.thumbnail() || this.mission?.thumbnail() || defaultThumbnail
+    if (includePoster) {
       res = this.poster_jp() || res
     }
-
-    return res === NSF_LOGO ? DEFAULT_THUMBNAIL : res
+    return res === NSF_LOGO ? defaultThumbnail : res
   }
 }

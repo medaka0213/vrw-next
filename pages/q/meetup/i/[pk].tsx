@@ -12,7 +12,6 @@ import {
 import OgpHead from "@/components/OgpHead";
 
 const App = (props: any) => {
-  console.log("App", props);
   let data = new MeetupDetail(props);
   return props.notFound ? (
     <Error404 />
@@ -20,7 +19,7 @@ const App = (props: any) => {
     <>
       <OgpHead
         title={"集会情報 : " + data.title()}
-        thumbnailUrl={data.thumbnail(false)}
+        thumbnailUrl={data.thumbnail({ includePoster: false })}
       />
       <MeetupPage data={data} />
     </>
@@ -41,6 +40,7 @@ App.getInitialProps = async (context: any) => {
   const image = relation.image || [];
   let launch = relation.launch ? relation.launch[0] : null;
   let event = relation.event ? relation.event[0] : null;
+  let slide = relation.slide ? relation.slide[0] : null;
   // 参照アイテム
   const reference = await fetGetReference({ pk: query.pk, type });
   if (!launch && !event) {
@@ -52,6 +52,7 @@ App.getInitialProps = async (context: any) => {
     item: item.data(),
     mission: launch ? launch.data() : event ? event.data() : null,
     poster: image?.map((item: any) => item.data()) || [],
+    slide: slide ? slide.data() : null,
     loaded: true,
   };
 };

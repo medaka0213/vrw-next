@@ -14,8 +14,14 @@ const App = ({
     },
   ],
   ...props
+}: {
+  sx?: any;
+  defaultSort?: string;
+  defaultOrder?: string;
+  onSubmit: any;
+  keys?: any;
 }) => {
-  const formik = useFormik({
+  const formik: any = useFormik({
     initialValues: {
       sort: defaultSort,
       order: defaultOrder,
@@ -41,7 +47,7 @@ const App = ({
             name="sort"
             title="並び替え"
             variant="standard"
-            options={keys.map((key) => ({
+            options={keys.map((key: any) => ({
               value: key.value,
               label: key.label,
             }))}

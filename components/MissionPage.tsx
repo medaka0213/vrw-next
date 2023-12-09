@@ -5,15 +5,15 @@ import Typography from "@mui/material/Typography";
 
 import { ImagePreview } from "@medaka0213/react-vrw";
 
+import { MissionDetail } from "@/lib/models";
 import { Link } from "@/components/Link";
 import MissionDetailTable from "@/components/MissionDetailTable";
 import Timeline from "@/components/Timeline";
 import SlideShow from "@/components/Slide";
-
 import MainBox from "@/components/common/MainBox";
 import VideoPreview from "@/components/common/VideoPreview";
 
-const App = ({ data }) => {
+const App = ({ data }: { data: MissionDetail }) => {
   let { item, slide, meetup, countdown } = data;
   const ImageDialog = () => (
     <ImagePreview src={data.thumbnail()} alt={"thumbnail"}>
@@ -69,7 +69,7 @@ const App = ({ data }) => {
             >
               {data.title()}
             </Typography>
-            <MissionDetailTable item={item} meetup={meetup} />
+            <MissionDetailTable item={item} meetup={meetup || []} />
           </Grid>
         </Grid>
       </MainBox>

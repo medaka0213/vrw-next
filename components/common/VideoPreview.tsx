@@ -18,7 +18,7 @@ const App = ({
 }: {
   url: string;
   title?: string;
-  seek_offset: number;
+  seek_offset?: number;
 }) => {
   const id = extractIdFromUrl(url);
   const _url = isYoutubeUrl(url)

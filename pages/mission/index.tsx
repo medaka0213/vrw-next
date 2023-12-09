@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import LinearProgress from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
 
-import MeeutpList from "@/components/MeeutpList";
+import MissionList from "@/components/MissionList";
 import MainBox from "@/components/common/MainBox";
 import OgpHead from "@/components/OgpHead";
 
@@ -19,8 +19,8 @@ import {
   getDefaultQuery,
 } from "@medaka0213/react-vrw";
 
-const fetchProps = async (query) => {
-  let type = "meetup";
+const fetchProps = async (query: any) => {
+  let type = "mission";
   if (Object.keys(query).length === 0) {
     query = {};
     getDefaultQuery(type).forEach(({ key, value }) => {
@@ -30,13 +30,13 @@ const fetchProps = async (query) => {
   return await fetGetItems({ type, params: query });
 };
 
-const isDatetime = (key, type) => {
+const isDatetime = (key: any, type: string) => {
   const keyList = getSearchItems(type);
   const target = keyList.filter((k) => k.value === key);
   return target.length ? target[0].type === "datetime" : false;
 };
 
-const getParams = (type, query, keys) => {
+const getParams = (type: string, query: any, keys: any[]) => {
   if (Object.keys(query).length === 0) {
     return getDefaultQuery(type);
   } else {
@@ -53,15 +53,15 @@ const getParams = (type, query, keys) => {
 
 const App = () => {
   const { query, isReady } = useRouter();
-  const type = "meetup";
+  const type = "mission";
 
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<any[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const [queries, setQueries] = React.useState([]);
+  const [queries, setQueries] = React.useState<any[]>([]);
   let keys = getSearchItems(type);
 
-  const movePage = (params) => {
+  const movePage = (params: any[]) => {
     params = params.map((p) => `${p.key}=${p.value}`);
     const path = `/${type}/?${params.join("&")}`;
     Router.push(path);
@@ -80,7 +80,7 @@ const App = () => {
 
   useEffect(() => {
     const params = getParams(type, query, keys);
-    const queries = params.map((p) => {
+    const queries: any[] = params.map((p) => {
       let pld = {};
       if (isDatetime(p.key, type)) {
         pld = TimeRange.fromString(p.value).toQueryItem(p.key);
@@ -97,7 +97,7 @@ const App = () => {
 
   return (
     <>
-      <OgpHead title="集会を検索する"></OgpHead>
+      <OgpHead title="ミッションを検索する"></OgpHead>
       <MainBox
         sx={{
           border: "1px solid #eaeaea",
@@ -106,9 +106,9 @@ const App = () => {
         }}
       >
         <SearchDetailForm
-          onSubmit={(params) => {
+          onSubmit={async (queries: any) => {
             movePage(
-              params.map((p) => {
+              queries.map((p: string) => {
                 return {
                   key: p.split("=")[0],
                   value: p.split("=")[1],
@@ -125,7 +125,7 @@ const App = () => {
       </MainBox>
       {isLoaded ? (
         <MainBox>
-          <MeeutpList items={items || []} />
+          <MissionList items={items || []} />
         </MainBox>
       ) : (
         <LinearProgress />

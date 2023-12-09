@@ -1,7 +1,16 @@
 import React from "react";
 import Paper from "@mui/material/Paper";
 
-const App = ({ sx = {}, children, Component = Paper, ...props }) => {
+const App = ({
+  sx = {},
+  children,
+  Component = Paper,
+  ...props
+}: {
+  sx?: any;
+  children: any;
+  Component?: any;
+}) => {
   return (
     <Component
       sx={{
@@ -12,6 +21,7 @@ const App = ({ sx = {}, children, Component = Paper, ...props }) => {
         },
         ...sx,
       }}
+      {...props}
     >
       {children}
     </Component>

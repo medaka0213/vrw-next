@@ -5,7 +5,7 @@ import { BoxProps } from "@mui/system";
 import LaunchIcon from "@mui/icons-material/Launch";
 
 export type LinkProps = BoxProps & {
-  href: string;
+  href: string | { pathname: string; query: any };
   external?: boolean;
 };
 

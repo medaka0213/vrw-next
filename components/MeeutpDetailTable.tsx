@@ -1,22 +1,31 @@
 import DetailTable from "./DetailTable";
 import { TimeRange } from "@medaka0213/react-vrw";
+import { Launch, Event, Meetup } from "@medaka0213/react-vrw";
 
 import Box from "@mui/material/Box";
 
 import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "@/components/Link";
 
-import { getColor } from "../lib/item";
-import { timeRangeForWeekly } from "../lib/time";
+import { getColor } from "@/lib/item";
+import { timeRangeForWeekly } from "@/lib/time";
 
-const App = ({ item, event, sx }) => {
+const App = ({
+  item,
+  event,
+  sx,
+}: {
+  item: Meetup;
+  event?: Launch | Event;
+  sx?: any;
+}) => {
   let missionPath;
   let missionName;
   if (item.type === "weekly") {
     let timeRange = timeRangeForWeekly(item.datetime);
     missionPath = `/mission/?datetime=${timeRange.start}...${timeRange.end}`;
     missionName = `過去一週間の振り返り: ${item.datetime_format()}`;
-  } else {
+  } else if (event) {
     missionPath = `/mission/detail?pk=${event.pk}`;
     missionName = event.missionTitle_JP_Short();
   }
@@ -32,7 +41,7 @@ const App = ({ item, event, sx }) => {
     {
       key: "ミッション情報",
       value: (
-        <Link href={missionPath}>
+        <Link href={missionPath || "/mission"}>
           {missionName}
           <SearchIcon
             sx={{

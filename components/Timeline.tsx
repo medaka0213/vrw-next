@@ -1,6 +1,15 @@
 import { ItemListTable } from "@medaka0213/react-vrw";
 
-const App = ({ countdown, datetime, mode = "t_minus", ...props }) => {
+const App = ({
+  countdown,
+  datetime,
+  mode = "t_minus",
+  ...props
+}: {
+  countdown: any;
+  datetime: any;
+  mode: any;
+}) => {
   countdown = countdown.format(datetime);
   return (
     <ItemListTable
@@ -24,6 +33,7 @@ const App = ({ countdown, datetime, mode = "t_minus", ...props }) => {
       ]}
       rows={countdown[mode] || []}
       {...props}
+      onRowClick={() => {}}
     />
   );
 };

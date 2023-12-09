@@ -1,19 +1,32 @@
+import React from "react";
 import dynamic from "next/dynamic";
-
-import DetailTable from "./DetailTable";
-import { TimeRange } from "@medaka0213/react-vrw";
-import { Link } from "@/components/Link";
-
 import SearchIcon from "@mui/icons-material/Search";
-import { getColor } from "../lib/item";
+
+import { TimeRange } from "@medaka0213/react-vrw";
+import { Launch, Event, Meetup } from "@medaka0213/react-vrw";
+
+import { Link } from "@/components/Link";
+import { getColor } from "@/lib/item";
+import DetailTable from "./DetailTable";
 
 const CountDownClock = dynamic(
-  () => import("@medaka0213/react-vrw").then((mod) => mod.CountDownClock),
+  () =>
+    import("@medaka0213/react-vrw").then(
+      (mod: any): React.FC<{ datetime_iso: string }> => mod.CountDownClock
+    ),
   { ssr: false }
 );
 
-const App = ({ item, sx, meetup }) => {
-  const items_launch = [
+const App = ({
+  item,
+  sx,
+  meetup,
+}: {
+  item: Launch | Event;
+  sx?: any;
+  meetup: Meetup[];
+}) => {
+  const items_launch = ({ item }: { item: Launch }) => [
     {
       key: "状態",
       value: getColor(item).jp + " (" + getColor(item).en.toUpperCase() + ")",
@@ -30,6 +43,7 @@ const App = ({ item, sx, meetup }) => {
           "打ち上げ時刻が確定していません"
         ),
     },
+
     {
       key: "日時",
       value: item.datetime_format_JP,
@@ -168,7 +182,7 @@ const App = ({ item, sx, meetup }) => {
       ),
     },
   ];
-  const items_event = [
+  const items_event = ({ item }: { item: Event }) => [
     {
       key: "状態",
       value: getColor(item).jp + " (" + getColor(item).en.toUpperCase() + ")",
@@ -199,7 +213,7 @@ const App = ({ item, sx, meetup }) => {
     },
     {
       key: "集会情報",
-      value: meetup.map((meetup) => (
+      value: meetup.map((meetup: any) => (
         <>
           <Link
             href={{
@@ -234,7 +248,11 @@ const App = ({ item, sx, meetup }) => {
 
   return (
     <DetailTable
-      items={item.itemType() === "launch" ? items_launch : items_event}
+      items={
+        item.itemType() === "launch"
+          ? items_launch({ item: item as Launch })
+          : items_event({ item })
+      }
       sx={sx}
     />
   );

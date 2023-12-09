@@ -1,5 +1,5 @@
 import * as React from "react";
-import Router from "next/router";
+import Link from "next/link";
 
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
@@ -9,10 +9,11 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
 import { getSearchItems, sort_array } from "@medaka0213/react-vrw";
+
 import MissionBadge from "@/components/MissionBadge";
 import SortForm from "./SortForm";
 
-export const MeeutpListItem = ({ item }) => {
+export const MissionListItem = ({ item }: { item: any }) => {
   let img_url = item.image_url || item.rocket_image_url;
   if (
     !img_url ||
@@ -24,48 +25,53 @@ export const MeeutpListItem = ({ item }) => {
   }
 
   return (
-    <ListItemButton
-      alignItems="flex-start"
-      onClick={() => Router.push(item.itemDetailPath("pub"))}
+    <Link
+      href={item.itemDetailPath("admin")}
+      passHref
+      key={item.pk + "link"}
+      style={{ textDecoration: "none", color: "#000000de" }}
     >
-      <ListItemAvatar>
-        <MissionBadge item={item}>
-          <Avatar
-            alt="Remy Sharp"
-            src={img_url}
-            variant="square"
-            sx={{ width: 72, height: 72, mr: 2 }}
-          />
-        </MissionBadge>
-      </ListItemAvatar>
-      <ListItemText
-        primary={item.get_jp_value("title")}
-        secondary={
-          <React.Fragment>
-            <Typography
-              sx={{ display: "inline" }}
-              component="span"
-              variant="body2"
-              color="text.primary"
-            >
-              開場 ... 日本時間 {item.datetime_format()}
-            </Typography>
-            <Typography>
-              {item.type === "live" ? "生中継の部" : "アーカイブの部"}
-            </Typography>
-          </React.Fragment>
-        }
-      />
-    </ListItemButton>
+      <ListItemButton>
+        <ListItemAvatar>
+          <MissionBadge item={item}>
+            <Avatar
+              alt="Remy Sharp"
+              src={img_url}
+              variant="square"
+              sx={{ width: 72, height: 72, mr: 2 }}
+            />
+          </MissionBadge>
+        </ListItemAvatar>
+        <ListItemText
+          primary={item.missionTitle_JP()}
+          secondary={
+            <React.Fragment>
+              <Typography
+                sx={{ display: "inline" }}
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                {item.datetime_time_type === "CONFIRMED" && "日本時間"}{" "}
+                {item.datetime_format_JP}
+              </Typography>
+              <Typography>
+                {item.get_jp_value("overview") && item.get_jp_value("overview")}
+              </Typography>
+            </React.Fragment>
+          }
+        />
+      </ListItemButton>
+    </Link>
   );
 };
 
-const App = ({ items: defaultItems }) => {
+const App = ({ items: defaultItems }: { items: any[] }) => {
   const [items, setItems] = React.useState(defaultItems);
   const [sort, setSort] = React.useState("datetime");
   const [order, setOrder] = React.useState("asc");
 
-  const handleSubmit = ({ sort, order }) => {
+  const handleSubmit = ({ sort, order }: { sort: string; order: string }) => {
     setSort(sort);
     setOrder(order);
   };
@@ -96,7 +102,7 @@ const App = ({ items: defaultItems }) => {
           <Grid xs={12} md={8} pb={1} px={1}>
             <SortForm
               onSubmit={handleSubmit}
-              keys={getSearchItems("meetup")}
+              keys={getSearchItems("mission")}
               defaultSort="datetime"
               defaultOrder="asc"
             />
@@ -108,12 +114,12 @@ const App = ({ items: defaultItems }) => {
             xs={12}
             md={6}
             xl={4}
-            key={`meetup-list-${i}`}
+            key={`mission-list-${i}`}
             sx={{
               borderBottom: "1px solid #eee",
             }}
           >
-            <MeeutpListItem item={item} />
+            <MissionListItem item={item} />
           </Grid>
         ))}
       </Grid>

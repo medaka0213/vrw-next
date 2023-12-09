@@ -16,7 +16,14 @@ import { TabsParent } from "@medaka0213/react-vrw";
 import { getEvents, getMeetup, getMissions } from "../lib/client";
 import MissionIcon from "@/components/MissionIcon";
 
-const SmallItemList = ({ items, loading, ...props }) => {
+const SmallItemList = ({
+  items,
+  loading,
+  ...props
+}: {
+  items: any[];
+  loading: boolean;
+}) => {
   return (
     <List {...props}>
       {loading && <LinerProgress />}
@@ -81,16 +88,16 @@ const SmallItemList = ({ items, loading, ...props }) => {
   );
 };
 
-const ItemListByType = ({ type, ...props }) => {
+const ItemListByType = ({ type, ...props }: { type: string }) => {
   const router = useRouter();
 
-  const Items = [];
+  const Items: any = [];
   const [loading, setLoading] = useState(false);
-  const [fetchedItems, setFetchedItems] = useState([]);
+  const [fetchedItems, setFetchedItems] = useState<any[]>([]);
 
   const load = async () => {
     setLoading(true);
-    let items = [];
+    let items: any[] = [];
     if (type === "mission") {
       items = await getMissions();
     } else if (type === "meetup") {
@@ -98,7 +105,7 @@ const ItemListByType = ({ type, ...props }) => {
     } else {
       items = await getEvents();
     }
-    setFetchedItems(items.reverse());
+    setFetchedItems(items.slice().reverse());
     setLoading(false);
   };
 

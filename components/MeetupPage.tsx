@@ -4,14 +4,15 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
 import { ImagePreview } from "@medaka0213/react-vrw";
-import { Link } from "@/components/Link";
 
+import { Link } from "@/components/Link";
+import { MeetupDetail } from "@/lib/models";
 import MeeutpDetailTable from "@/components/MeeutpDetailTable";
 import MainBox from "@/components/common/MainBox";
 import SlideShow from "@/components/Slide";
 
-const App = ({ data }) => {
-  let { item, mission, slide } = data;
+const App = ({ data }: { data: MeetupDetail }) => {
+  let { item, mission = undefined, slide } = data;
   const ImageDialog = () =>
     !data.thumbnail({
       defaultThumbnail: "",
@@ -24,7 +25,7 @@ const App = ({ data }) => {
             Image Credit: {item.image_credit}
           </Typography>
         ) : (
-          item.rocket_image_url && (
+          mission?.rocket_image_url && (
             <Typography variant="body2" sx={{ textAlign: "center" }}>
               Image Credit: via{" "}
               <Link href={"http://nextspaceflight.com"} external>
